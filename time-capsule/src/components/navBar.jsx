@@ -9,6 +9,7 @@ const Navigation = () => {
         <div>
         <Link style={padding} to="/">Home</Link>
         <Link style={padding} to="/create">Create</Link>
+        <Link style={padding} to="/about">About</Link>
       </div>
     )
 }

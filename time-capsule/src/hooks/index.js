@@ -1,26 +1,23 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-export const useField = (name, type = 'text') => { 
-  const [value, setValue] = useState('')
+export const useField = (name) => {
+    const [value, setValue] = useState("");
 
-  const onChange = (event) => {
-    if (type === 'file') {
-      setValue(event.target.files[0])
-    } else {
-      setValue(event.target.value)
-    }
-  };
+    const onChange = (event) => {
+        setValue(event.target.value);
+    };
 
-  const reset = () => {
-    setValue(type === 'file' ? '' : '')
-  };
+    const reset = () => {
+        setValue("");
+    };
 
-  return {
-    input: {
-      name,
-      value,
-      onChange,
-    },
-    reset
-  };
+    return {
+        input: {
+            name,
+            value,
+            onChange,
+        },
+        reset,
+        value,
+    };
 };
