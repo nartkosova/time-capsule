@@ -8,7 +8,7 @@ const Capsules = () => {
         console.log(capsules.map(capsule => capsule.id))
         fetchCapsules();  
     }, [fetchCapsules]);
-
+    
     return (
         <div>
             <h2>Your capsules:</h2>

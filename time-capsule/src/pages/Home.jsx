@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Capsules from "../components/Capsules";
-import { CapsuleProvider } from "../context/capsuleContext";
 
 const Home = () => {
     return (
