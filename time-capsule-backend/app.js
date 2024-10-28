@@ -8,7 +8,6 @@ const usersRouter = require('./controllers/users')
 const capsulesRouter = require('./controllers/capsules')
 const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
-
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

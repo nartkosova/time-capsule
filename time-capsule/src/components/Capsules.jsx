@@ -1,26 +1,32 @@
-import { useEffect } from "react";
-import { useCapsule } from "../context/capsuleContext";
+import { useEffect } from "react"
+import { useCapsule } from "../context/capsuleContext"
+import capsuleService from "../services/capsuleService"
 
 const Capsules = () => {
-    const { capsules, fetchCapsules } = useCapsule();
+    const { capsules, setCapsules } = useCapsule()
 
     useEffect(() => {
-        console.log(capsules.map(capsule => capsule.id))
-        fetchCapsules();  
-    }, [fetchCapsules]);
-    
+        capsuleService.getCapsule().then(capsules =>
+          setCapsules( capsules )
+        )  
+      }, [setCapsules])
+      
+    if (!capsules.length) {
+        return <p>No capsules found</p>
+    }
+
     return (
         <div>
-            <h2>Your capsules:</h2>
+            <h2>Your Capsules:</h2>
             <ul>
-            {capsules.map((capsule) => (
-           <li key={capsule.id}>
-                {capsule.title}: {capsule.content} (Opens on: {capsule.date})
-             </li>
-            ))}
+                {capsules.map(capsule => (
+                    <li key={capsule.id}>
+                        {capsule.title}: {capsule.content} (Opens on: {capsule.date})
+                    </li>
+                ))}
             </ul>
         </div>
-    );
+    )
 }
 
-export default Capsules;
+export default Capsules

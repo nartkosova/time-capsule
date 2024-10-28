@@ -1,16 +1,15 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-// eslint-disable-next-line react/prop-types
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const onSubmit = (event) => {
     event.preventDefault()
     handleLogin(username, password)
-    navigate('/')
+    // navigate('/')
   };
 
   return (
