@@ -1,28 +1,27 @@
-const bcrypt = require('bcryptjs')
-const usersRouter = require('express').Router()
-const User = require('../models/user')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const usersRouter = require('express').Router();
+const User = require('../models/user');
+require('dotenv').config();
 
 usersRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body
+  const { username, email, name, surname, password } = request.body;
 
-  if (!username || !password) {
-    return response.status(400).json({ error: 'Username and password are required!' })
+  if (!username || !email || !name || !surname || !password) {
+    return response.status(400).json({
+      error: 'All fields are required!',
+    });
   }
 
-  if (username.length < 3 ) {
-    return response.status(400).json({ error: 'Username must be at least 3 characters long.' })
-  }
-  if (password.length < 8) {
-    return response.status(400).json({ error: 'Password must be at least 8 characters long.' })
-  }
-  
-  const existingUser = await User.findOne({ username, email })
+  const existingUser = await User.findOne({ $or: [{ username }, { email }] });
   if (existingUser) {
-    return response.status(400).json({ error: 'Username or email is already taken.' })
+    return response.status(400).json({
+      error: 'Username or email already exists!',
+    });
   }
 
-  const saltRounds = 10
-  const passwordHash = await bcrypt.hash(password, saltRounds)
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(password, saltRounds);
 
   const user = new User({
     username,
@@ -30,19 +29,28 @@ usersRouter.post('/', async (request, response) => {
     name,
     surname,
     passwordHash,
-    role,
-  })
-
-  const savedUser = await user.save()
-
-  response.status(201).json(savedUser)
-})
-usersRouter.get('/', async (request, response) => {
-    const users = await User
-      .find({})
-      .populate('blogs', { title: 1, author: 1, url: 1 });
-    response.json(users);
   });
-  
 
-module.exports = usersRouter
+  try {
+    const savedUser = await user.save();
+
+    const userForToken = {
+      username: savedUser.username,
+      id: savedUser._id,
+    };
+    const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' });
+
+    response.status(201).json({
+      token,
+      username: savedUser.username,
+      email: savedUser.email,
+      name: savedUser.name,
+      surname: savedUser.surname,
+      id: savedUser._id,
+    });
+  } catch (error) {
+    response.status(500).json({ error: 'User creation failed. Please try again.' });
+  }
+});
+
+module.exports = usersRouter;

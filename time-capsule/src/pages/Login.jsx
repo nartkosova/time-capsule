@@ -1,12 +1,16 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
+// eslint-disable-next-line react/prop-types
 const LoginForm = ({ handleLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const onSubmit = (event) => {
     event.preventDefault()
     handleLogin(username, password)
+    navigate('/')
   };
 
   return (
@@ -19,7 +23,7 @@ const LoginForm = ({ handleLogin }) => {
            placeholder="Username"
             type="text"
             value={username}
-            name="Username"
+            name="username"
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
@@ -30,7 +34,7 @@ const LoginForm = ({ handleLogin }) => {
            placeholder="Password"
             type="password"
             value={password}
-            name="Password"
+            name="password"
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>

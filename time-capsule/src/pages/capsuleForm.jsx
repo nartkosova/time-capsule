@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useField } from "../hooks/index";
 import { useNavigate } from "react-router-dom";
 import { useCapsule } from "../context/capsuleContext";
@@ -14,17 +14,13 @@ const CapsuleForm =  () => {
     const fileInput = useRef()
     const navigate = useNavigate()
     const today = new Date().toISOString().split('T')[0]
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const {addCapsule} = useCapsule()    
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         console.log("Form submitted");
         const file = fileInput.current.files[0]
-        if (isSubmitting) return
 
-        setIsSubmitting(true)
-  
         if (file) {
             console.log(file.type)
         }
@@ -41,7 +37,6 @@ const CapsuleForm =  () => {
             content.reset()
             date.reset()
             fileInput.current.value = ''
-            setIsSubmitting(false);
             navigate('/')
 
     }

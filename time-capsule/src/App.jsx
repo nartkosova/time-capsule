@@ -10,9 +10,10 @@ import capsuleService from './services/capsuleService'
 import Footer from './components/Footer'
 
 const App = () => {
-  const [, setUsername] = useState('')
-  const [, setPassword] = useState('')
-
+  const [user, setUser] = useState(null)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  
   const handleLogin = async (username, password) => {
     try {
       const user = await loginService.login({
