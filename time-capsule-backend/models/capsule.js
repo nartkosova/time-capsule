@@ -29,14 +29,13 @@ const capsuleSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    sendTo: {
+        type: String,
+        // required: true,
+        match: [/.+@.+\..+/, 'Please enter a valid email adress.']
+    },
     fileInput: {
         type: Buffer,  
-    },
-    fileName: {
-        type: String, 
-    },
-    fileType: {
-        type: String,  
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

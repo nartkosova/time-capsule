@@ -11,6 +11,7 @@ const CapsuleForm =  () => {
     const title = useField('title')
     const content = useField('content')
     const date = useField('date')
+    const sendTo = useField('sendTo')
     const fileInput = useRef()
     const navigate = useNavigate()
     const today = new Date().toISOString().split('T')[0]
@@ -28,13 +29,15 @@ const CapsuleForm =  () => {
         const capsuleObject = {
             title: title.value, 
             content: content.value,
+            sendTo: sendTo.value,
             date: date.value,
-            image: file,
+            fileInput: file,
         }
         console.log("Capsule object:", capsuleObject);
           await addCapsule(capsuleObject)
             title.reset()
             content.reset()
+            sendTo.reset()
             date.reset()
             fileInput.current.value = ''
             navigate('/')
@@ -44,45 +47,71 @@ const CapsuleForm =  () => {
     const handleReset = () => {
         title.reset()
         content.reset()
+        sendTo.reset()
         date.reset()
         fileInput.current.value = ''
     }
 
     return (
-    <div style={padding}>
-        <form onSubmit={handleSubmit}>
+<div style={padding}>
+    <form onSubmit={handleSubmit}>
+        <fieldset style={padding}>
+            <legend>Submit a Capsule</legend>
+            
             <div style={padding}>
-                Title: 
+                <label htmlFor="title">Title:</label>
                 <input 
-                type="text"
-                {...title.input}
+                    type="text"
+                    id="title"
+                    {...title.input}
                 />
             </div>
-            <div style={padding}> 
-                <label>Capsule Content</label> <br/>
+
+            <div style={padding}>
+                <label htmlFor="content">Capsule Content:</label> <br/>
                 <textarea
-                {...content.input}
-                />
-            </div> <br/>
-            <div>
-                Select Date: <br/>
-                <input 
-                type="date"
-                {...date.input}
-                min={today}
-                />
-            </div> <br/>
-            <div style={padding}>
-                <input 
-                type="file"
-                accept="image/*,video/*,audio/*"
-                ref={fileInput}
+                    id="content"
+                    {...content.input}
                 />
             </div>
-            <button type="submit">Submit</button>
-            <button type="button" onClick={handleReset}>Reset</button>
-        </form>        
-    </div>
+
+            <div style={padding}>
+                <label htmlFor="sendTo">To (Write Email):</label>
+                <input
+                    type="email"
+                    id="sendTo"
+                    {...sendTo.input}
+                    placeholder="example@example.com"
+                />
+            </div>
+
+            <div style={padding}>
+                <label htmlFor="date">Select Date:</label>
+                <input 
+                    type="date"
+                    id="date"
+                    {...date.input}
+                    min={today}
+                />
+            </div>
+
+            <div style={padding}>
+                <label htmlFor="fileInput">Upload File:</label>
+                <input 
+                    type="file"
+                    id="fileInput"
+                    accept="image/*,video/*,audio/*"
+                    ref={fileInput}
+                />
+            </div>
+            
+            <div style={padding}>
+                <button type="submit">Submit</button>
+                <button type="button" onClick={handleReset}>Reset</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
     )
 }
 

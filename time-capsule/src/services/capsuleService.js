@@ -40,4 +40,9 @@ const getCapsule = async (id) => {
   return response.data
 }
 
-export default { createCapsule, deleteCapsule, updateCapsule, getCapsule, setToken }
+const getCapsulesByUser = async (userId) => {
+  const response = await axios.get(`${baseUrl}/user/${userId}`)
+  return response.data
+}
+
+export default { createCapsule, deleteCapsule, updateCapsule, getCapsule, setToken, getCapsulesByUser}

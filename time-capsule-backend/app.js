@@ -21,8 +21,8 @@ app.use(express.json())
 
 app.use(morgan('dev'))
 
-app.use('/api/capsules',middleware.userExtractor, capsulesRouter)
-app.use('/api/users', usersRouter)
+app.use('/api/capsules', middleware.tokenExtractor, middleware.userExtractor, capsulesRouter)
+app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter)
 
 app.use((error, request, response, next) => {

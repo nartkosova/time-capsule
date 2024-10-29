@@ -10,6 +10,7 @@ const getAllUsers = async () => {
     const response = await axios.get(baseUrl)
     return response.data
 }
+
 const updateUser = async (id, updatedData) => {
     const response = await axios.put(`${baseUrl}/${id}`, updatedData);
     return response.data;

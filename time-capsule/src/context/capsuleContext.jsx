@@ -30,7 +30,7 @@ export const CapsuleProvider = ({ children }) => {
     }
 
     return (
-        <CapsuleContext.Provider value={{ capsules, addCapsule, deleteCapsule }}>
+        <CapsuleContext.Provider value={{ capsules, setCapsules, addCapsule, deleteCapsule }}>
             {children}
         </CapsuleContext.Provider>
     )

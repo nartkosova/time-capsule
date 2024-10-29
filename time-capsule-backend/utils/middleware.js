@@ -32,7 +32,7 @@ const errorHandler = (error, request, response, next) => {
 }
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization')
-  if (authorization && authorization.startsWith('')) {
+  if (authorization && authorization.startsWith('Bearer ')) {
     request.token = authorization.substring(7);
   } else {
     request.token = null;

@@ -9,4 +9,5 @@
 | 21/10/24 | 4 | Added description, worked on displaying existing dummy capsules and the ones that are created, errors with capsule ID. |
 | 24/10/24 | 3 | Created backend, created Login form, and footer. |
 | 28/10/24 | 4 | Worked on capsule schema, login, registering etc. Error handling. |
-| total | 17 | | 
+| 29/10/24 | 3 | Capsule creation works, only users capsule will show on screen, fixed errors. |
+| total | 20 | | 

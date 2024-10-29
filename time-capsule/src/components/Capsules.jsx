@@ -5,14 +5,28 @@ import capsuleService from "../services/capsuleService"
 const Capsules = () => {
     const { capsules, setCapsules } = useCapsule()
 
+    const token = localStorage.getItem('loggedCapsuleappUser') 
+    let userId = null
+
+    if (token) {
+        const decodedToken = JSON.parse(atob(token.split('.')[1])) 
+        userId = decodedToken.id 
+    }
+
     useEffect(() => {
-        capsuleService.getCapsule().then(capsules =>
-          setCapsules( capsules )
-        )  
-      }, [setCapsules])
-      
+        const fetchUserCapsules = async () => {
+            if (userId) {
+                const userCapsules = await capsuleService.getCapsulesByUser(userId)
+                setCapsules(userCapsules)
+            }
+        }
+        fetchUserCapsules()
+    }, [setCapsules, userId])
+
     if (!capsules.length) {
-        return <p>No capsules found</p>
+        return <p>No capsules found, create one now!</p>
+    } else if (token === '') {
+        return <p>Login or Register to create a capsule!</p>
     }
 
     return (

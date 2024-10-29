@@ -36,28 +36,26 @@ capsulesRouter.post('/', async (request, response) => {
       return response.status(401).json({error: "User not found!"})
     }
        
-    if (!body.title || !body.url) {
-      return response.status(400).json({ error: 'Title, Content or Date missing!' });
-    }
+    if (!body.title || !body.content || !body.date) {
+      return response.status(400).json({ error: 'Title, Content, or Date missing!' });
+    }    
 
-    const capsule = new capsule({
-      author: body.author || 'Unknown',
+    const newCapsule = new capsule({
 
       title: body.title,
-      content: body.author,
+      content: body.content,
       date: body.date,
       fileInput: body.fileInput,
-      fileName: body.fileName,
-      fileType: body.fileType,
-      user: user.id
+      user: user._id
     });
-    const savedcapsule = await capsule.save();
+    const savedcapsule = await newCapsule.save();
     user.capsules = user.capsules.concat(savedcapsule._id);
     await user.save();
     response.status(201).json(savedcapsule);
     
     
   } catch (error) {
+    console.error('Failed to save capsule', error)
     response.status(500).json({ error: 'Failed to save the capsule!' });
   }
 });
@@ -89,21 +87,32 @@ capsulesRouter.delete('/:id', async (request, response) => {
 })
 capsulesRouter.put('/:id', async (request, response) => {
   try {
-    const { title, author, url, likes } = request.body;
-    const updatedcapsule = await capsule.findByIdAndUpdate(
+    const { title, content, date, fileInput } = request.body;
+    const updatedCapsule = await capsule.findByIdAndUpdate(
       request.params.id,
-      { title, content, date, fileInput, fileName, fileType },
+      { title, content, date, fileInput },
       { new: true, runValidators: true }
     ).populate('user', { username: 1, name: 1, id: 1 })
 
-    if (updatedcapsule) {
-      response.json(updatedcapsule);
+    if (updatedCapsule) {
+      response.json(updatedCapsule);
     } else {
       response.status(404).json({ error: 'Capsule not found!' });
     }
   } catch (error) {
+    console.error('kaka', error)
     response.status(400).json({ error: 'Bad Request' });
   }
 });
+capsulesRouter.get('/user/:userId', async (request, response) => {
+  try {
+      const userId = request.params.userId
+      const userCapsules = await capsule.find({ user: userId }).populate('user', { username: 1, name: 1, id: 1 })
+      response.json(userCapsules)
+  } catch (error) {
+      response.status(500).json({ error: 'Something went wrong' })
+  }
+})
+
 
 module.exports = capsulesRouter
