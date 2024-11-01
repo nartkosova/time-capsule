@@ -5,12 +5,17 @@ const User = require('../models/user');
 require('dotenv').config();
 
 usersRouter.post('/', async (request, response) => {
-  const { username, email, name, surname, password } = request.body;
+  const { username, email, name, surname, password, role } = request.body;
 
   if (!username || !email || !name || !surname || !password) {
     return response.status(400).json({
       error: 'All fields are required!',
     });
+  }
+  if (password.length < 8) {
+    return response.status(400).json({
+      error: 'Password must be at least 8 characters',
+    })
   }
 
   const existingUser = await User.findOne({ $or: [{ username }, { email }] });
@@ -29,6 +34,7 @@ usersRouter.post('/', async (request, response) => {
     name,
     surname,
     passwordHash,
+    role
   });
 
   try {
@@ -46,9 +52,11 @@ usersRouter.post('/', async (request, response) => {
       email: savedUser.email,
       name: savedUser.name,
       surname: savedUser.surname,
+      role: savedUser.role,
       id: savedUser._id,
     });
   } catch (error) {
+    console.error("ERROR CREATING ", error)
     response.status(500).json({ error: 'User creation failed. Please try again.' });
   }
 });

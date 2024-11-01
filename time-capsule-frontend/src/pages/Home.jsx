@@ -14,7 +14,9 @@ const Home = () => {
       </p>
       <h2>Create a capsule now!</h2>
       <p>
-          <Link to="/create">Create</Link>
+        
+          <Link to="/create"><button >Create</button></Link>
+          
       </p>       
       <section>
           <Capsules />

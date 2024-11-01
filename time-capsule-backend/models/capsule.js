@@ -26,7 +26,7 @@ const capsuleSchema = new mongoose.Schema({
         required: true,
     },
     date: {
-        type: Date,
+        type: String,
         required: true,
     },
     sendTo: {
@@ -36,6 +36,10 @@ const capsuleSchema = new mongoose.Schema({
     },
     fileInput: {
         type: Buffer,  
+    },
+    sent: {
+        type: String,
+        default: Date.now
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -48,7 +52,10 @@ capsuleSchema.set('toJSON', {
       returnedObject.id = returnedObject._id.toString();
       delete returnedObject._id;
       delete returnedObject.__v;
-    }
+      if (returnedObject.date) {
+        returnedObject.date = new Date(returnedObject.date).toLocaleDateString('en-GB');
+      }
+    }  
   })
 
   module.exports = mongoose.model('Capsule', capsuleSchema);

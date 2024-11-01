@@ -11,19 +11,26 @@ const Navigation = ({ user, handleLogout }) => {
     handleLogout()
   };
     return (
-        <div>
-            <Link style={padding} to="/">Home</Link>
+        <nav>
+            <h3><Link style={padding} to="/">Home</Link>
             <Link style={padding} to="/create">Create</Link>
-            {user ? (
+             {user ? (
                 <>
                     <span style={padding}>Logged in as {user.username}</span>
                     <button onClick={onLogout} style={padding}>Logout</button>
                 </>
             ) : (
                 <Link style={padding} to="/login">Login</Link>
+            )} 
+            {user ? (
+                <>
+                </>
+            ) : (
+                <Link style={padding} to="/register">Register</Link>
             )}
-            <Link style={padding} to="/about">About</Link>
-        </div>
+            
+            <Link style={padding} to="/about">About</Link></h3>
+        </nav>
     )
 }
 

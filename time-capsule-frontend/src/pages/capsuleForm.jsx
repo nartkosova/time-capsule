@@ -106,7 +106,7 @@ const CapsuleForm =  () => {
             </div>
             
             <div style={padding}>
-                <button type="submit">Submit</button>
+                <button type="submit">Submit</button> <></>
                 <button type="button" onClick={handleReset}>Reset</button>
             </div>
         </fieldset>

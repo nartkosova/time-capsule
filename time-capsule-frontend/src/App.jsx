@@ -9,12 +9,17 @@ import loginService from './services/loginService'
 import capsuleService from './services/capsuleService'
 import Footer from './components/Footer'
 import { CapsuleProvider } from './context/capsuleContext'
+import Register from './pages/Register'
+import userService from './services/userService'
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [capsules, setCapsules] = useState('')
+  const [name, setName] = useState('')
+  const [surname, setSurname] = useState('')
+  const [email, setEmail] = useState('')
   
   useEffect(() => {
     capsuleService.getCapsule().then(capsules =>
@@ -47,10 +52,38 @@ const App = () => {
       console.log(exception)
     }
   }
-  const handleLogout = () => {
+  const handleLogout =  () => {
     window.localStorage.removeItem('loggedCapsuleappUser')
     capsuleService.setToken(null)
     setUser(null)
+  }
+  const handleUser = async (name, surname, username, email, password) => {
+    name = name.trim();
+    surname = surname.trim();
+    username = username.trim();
+    email = email.trim();
+    password = password.trim();
+    try {
+      const user = await userService.createUser({
+        name,
+        surname,
+        username,
+        email,
+        password,
+      })
+      window.localStorage.setItem(
+        'loggedCapsuleappUser', JSON.stringify(user)
+      ) 
+      capsuleService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+      setName('')
+      setSurname('')
+      setEmail('')
+    } catch (exception) {
+      console.log("Failed to create user: ", exception)
+    }
   }
 
   return (
@@ -64,6 +97,7 @@ const App = () => {
         <Route path='/create' element={<CapsuleForm />}/>
         <Route path='/about' element={<About />}/>
         <Route path='/login' element={<LoginForm handleLogin={handleLogin} />}/>
+        <Route path='/register' element={<Register handleUser={handleUser}/>}/>
       </Routes>
       <div>
         <Footer />
