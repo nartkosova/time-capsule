@@ -11,4 +11,5 @@
 | 28/10/24 | 4 | Worked on capsule schema, login, registering etc. Error handling. |
 | 29/10/24 | 3 | Capsule creation works, only users capsule will show on screen, fixed errors. |
 | 01/11/24 | 3 | Created register form, added some example styles, fixed some errors. |
-| total | 23 | | 
+| 01/11/24 | 7 | First test deployment to [Render](https://time-capsule-1.onrender.com/). Worked on ideas and independent study|
+| total | 30 | | 
