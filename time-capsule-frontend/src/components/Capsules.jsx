@@ -35,7 +35,10 @@ const Capsules = () => {
             <ul>
                 {capsules.map(capsule => (
                     <li key={capsule.id}>
-                        {capsule.title}: {capsule.content} (Opens on: {capsule.date})
+                        <h3>{capsule.title}:</h3> <br/>
+                            {capsule.content} <br/>
+                            Opens on: ({capsule.date}) <br/>
+                            Capsule was sent on: ({capsule.sent})
                     </li>
                 ))}
             </ul>

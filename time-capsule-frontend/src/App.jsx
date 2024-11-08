@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+/* eslint-disable no-unused-vars */
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import CapsuleForm from './pages/capsuleForm'
 import Navigation from './components/navBar'
@@ -11,15 +12,19 @@ import Footer from './components/Footer'
 import { CapsuleProvider } from './context/capsuleContext'
 import Register from './pages/Register'
 import userService from './services/userService'
+import Notification from './components/Notification'
 
 const App = () => {
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('')
+  const [usernmae, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [capsules, setCapsules] = useState('')
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
   const [email, setEmail] = useState('')
+  const [notification, setNotification] = useState(null)
+  const [isError, setIsError] = useState(false)
+  const navigate = useNavigate()
   
   useEffect(() => {
     capsuleService.getCapsule().then(capsules =>
@@ -35,7 +40,7 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async (username, password) => {
+const handleLogin = async (username, password) => {
     try {
       const user = await loginService.login({
         username,
@@ -48,8 +53,15 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      console.log(exception)
+      console.log('Navigating to home...')
+      navigate('/')
+    } catch (error) {
+      setNotification('Failed to login', error)
+      console.log(error)
+      setIsError(true)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000);
     }
   }
   const handleLogout =  () => {
@@ -58,11 +70,6 @@ const App = () => {
     setUser(null)
   }
   const handleUser = async (name, surname, username, email, password) => {
-    name = name.trim();
-    surname = surname.trim();
-    username = username.trim();
-    email = email.trim();
-    password = password.trim();
     try {
       const user = await userService.createUser({
         name,
@@ -81,28 +88,36 @@ const App = () => {
       setName('')
       setSurname('')
       setEmail('')
+      navigate('/')
     } catch (exception) {
-      console.log("Failed to create user: ", exception)
+      setNotification('Failed to create user', exception)
+      console.log(exception)
+      setIsError(true)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000);
+      console.log("Failed to create user, make sure everything is correct", exception)
     }
   }
 
   return (
-    <CapsuleProvider>
-    <Router>
+    <CapsuleProvider message={notification} isError={isError}>
+
       <div>
         <Navigation user={user} handleLogout={handleLogout}/>
       </div>
+      <Notification message={notification} isError={isError} />
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/create' element={<CapsuleForm />}/>
         <Route path='/about' element={<About />}/>
-        <Route path='/login' element={<LoginForm handleLogin={handleLogin} />}/>
+        <Route path='/login' element={<LoginForm handleLogin={handleLogin}  handleUser={handleUser}/>}/>
         <Route path='/register' element={<Register handleUser={handleUser}/>}/>
       </Routes>
       <div>
         <Footer />
       </div>
-    </Router>
+
     </CapsuleProvider>
   )
 }

@@ -11,5 +11,8 @@
 | 28/10/24 | 4 | Worked on capsule schema, login, registering etc. Error handling. |
 | 29/10/24 | 3 | Capsule creation works, only users capsule will show on screen, fixed errors. |
 | 01/11/24 | 3 | Created register form, added some example styles, fixed some errors. |
-| 01/11/24 | 7 | First test deployment to [Render](https://time-capsule-1.onrender.com/). Worked on ideas and independent study|
-| total | 30 | | 
+| 03/11/24 | 7 | First test deployment to [Render](https://time-capsule-1.onrender.com/). Worked on ideas and independent study|
+| 06/11/24 | 2 | Tried fixing forms |
+| 08/11/24 | 2 | Fixed forms not working, removed useField for now. |
+|  | 2 | Implemented simple notifications, a lot of issues fixed. |
+| total | 36 | | 

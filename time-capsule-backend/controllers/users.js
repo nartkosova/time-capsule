@@ -42,6 +42,7 @@ usersRouter.post('/', async (request, response) => {
 
     const userForToken = {
       username: savedUser.username,
+      email: savedUser.email,
       id: savedUser._id,
     };
     const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' });
@@ -57,6 +58,7 @@ usersRouter.post('/', async (request, response) => {
     });
   } catch (error) {
     console.error("ERROR CREATING ", error)
+    console.error(error.stack)
     response.status(500).json({ error: 'User creation failed. Please try again.' });
   }
 });

@@ -1,6 +1,5 @@
 import { useRef } from "react";
-import { useField } from "../hooks/index";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useCapsule } from "../context/capsuleContext";
 
 const padding = {
@@ -8,47 +7,45 @@ const padding = {
 }
 
 const CapsuleForm =  () => {
-    const title = useField('title')
-    const content = useField('content')
-    const date = useField('date')
-    const sendTo = useField('sendTo')
-    const fileInput = useRef()
-    const navigate = useNavigate()
-    const today = new Date().toISOString().split('T')[0]
-    const {addCapsule} = useCapsule()    
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [sendTo, setSendTo] = useState('');
+    const [date, setDate] = useState('');
+    const fileInput = useRef();
+    const today = new Date().toISOString().split('T')[0];
+    const { addCapsule } = useCapsule();  
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         console.log("Form submitted");
-        const file = fileInput.current.files[0]
+        const file = fileInput.current.files[0];
 
         if (file) {
-            console.log(file.type)
+            console.log(file.type);
         }
 
         const capsuleObject = {
-            title: title.value, 
-            content: content.value,
-            sendTo: sendTo.value,
-            date: date.value,
+            title, 
+            content,
+            sendTo,
+            date,
             fileInput: file,
         }
         console.log("Capsule object:", capsuleObject);
-          await addCapsule(capsuleObject)
-            title.reset()
-            content.reset()
-            sendTo.reset()
-            date.reset()
-            fileInput.current.value = ''
-            navigate('/')
 
+        await addCapsule(capsuleObject)
+        setTitle('');
+        setContent('');
+        setSendTo('');
+        setDate('');
+        fileInput.current.value = ''
     }
 
     const handleReset = () => {
-        title.reset()
-        content.reset()
-        sendTo.reset()
-        date.reset()
+        setTitle('')
+        setContent('')
+        setSendTo('')
+        setDate('')
         fileInput.current.value = ''
     }
 
@@ -59,41 +56,45 @@ const CapsuleForm =  () => {
             <legend>Submit a Capsule</legend>
             
             <div style={padding}>
-                <label htmlFor="title">Title:</label>
-                <input 
-                    type="text"
-                    id="title"
-                    {...title.input}
-                />
-            </div>
+                        <label htmlFor="title">Title:</label>
+                        <input 
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
 
-            <div style={padding}>
-                <label htmlFor="content">Capsule Content:</label> <br/>
-                <textarea
-                    id="content"
-                    {...content.input}
-                />
-            </div>
+                    <div style={padding}>
+                        <label htmlFor="content">Capsule Content:</label> <br/>
+                        <textarea
+                            id="content"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+                    </div>
 
-            <div style={padding}>
-                <label htmlFor="sendTo">To (Write Email):</label>
-                <input
-                    type="email"
-                    id="sendTo"
-                    {...sendTo.input}
-                    placeholder="example@example.com"
-                />
-            </div>
+                    <div style={padding}>
+                        <label htmlFor="sendTo">To (Write Email):</label>
+                        <input
+                            type="email"
+                            id="sendTo"
+                            value={sendTo}
+                            onChange={(e) => setSendTo(e.target.value)}
+                            placeholder="example@example.com"
+                        />
+                    </div>
 
-            <div style={padding}>
-                <label htmlFor="date">Select Date:</label>
-                <input 
-                    type="date"
-                    id="date"
-                    {...date.input}
-                    min={today}
-                />
-            </div>
+                    <div style={padding}>
+                        <label htmlFor="date">Select Date:</label>
+                        <input 
+                            type="date"
+                            id="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            min={today}
+                        />
+                    </div>
 
             <div style={padding}>
                 <label htmlFor="fileInput">Upload File:</label>

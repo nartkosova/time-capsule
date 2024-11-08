@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import PropTypes from "prop-types";
 
 const padding = {
     padding: '10px'
@@ -33,5 +34,9 @@ const Navigation = ({ user, handleLogout }) => {
         </nav>
     )
 }
-
+Navigation.propTypes = {
+    user: PropTypes.string,
+    handleLogout: PropTypes.func
+  };
+  
 export default Navigation
