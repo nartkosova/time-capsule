@@ -1,0 +1,8 @@
+
+
+  backend:
+    build:
+      context: C:/Projekte/time-capsule-backend2
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"

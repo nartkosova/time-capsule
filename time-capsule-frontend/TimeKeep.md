@@ -15,4 +15,6 @@
 | 06/11/24 | 2 | Tried fixing forms |
 | 08/11/24 | 2 | Fixed forms not working, removed useField for now. |
 |  | 2 | Implemented simple notifications, a lot of issues fixed. |
-| total | 36 | | 
+| 10/11/24 | 2 | Fixed navbar to work on smaller screens, tried implementing tailwindcss not working for now.  |
+| 11/11/24 | 3 | Created a Dockerfile and configuration files, set up a Docker Hub repository, and deployed the app to [Render](https://time-capsule-1.onrender.com/) using Docker, with a smooth deployment process. You can view the Docker image on [Dockerhub](https://hub.docker.com/r/nartkosova/time-capsule). |
+| total | 41 | | 

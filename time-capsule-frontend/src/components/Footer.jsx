@@ -3,9 +3,9 @@
 const Footer = () => {
     return (
         <footer>
-            <div>
+            <p>
                 Nart Kosova
-            </div>
+            </p>
         </footer>
     )
 }

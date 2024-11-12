@@ -114,6 +114,7 @@ const handleLogin = async (username, password) => {
         <Route path='/login' element={<LoginForm handleLogin={handleLogin}  handleUser={handleUser}/>}/>
         <Route path='/register' element={<Register handleUser={handleUser}/>}/>
       </Routes>
+      <div style={{flexGrow: 1}}></div>
       <div>
         <Footer />
       </div>
