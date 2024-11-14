@@ -22,12 +22,10 @@ const Register = ({ handleUser }) => {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <fieldset>
-          <legend>Register</legend>
-          
           <label>
             Name:
             <input
+              required= 'true'
               data-testid="name"
               placeholder="Name"
               type="text"
@@ -40,6 +38,7 @@ const Register = ({ handleUser }) => {
           <label>
             Surname:
             <input
+              required= 'true'
               data-testid="surname"
               placeholder="Surname"
               type="text"
@@ -52,6 +51,7 @@ const Register = ({ handleUser }) => {
           <label>
             Username:
             <input
+              required= 'true'
               data-testid="username"
               placeholder="Username"
               type="text"
@@ -64,6 +64,7 @@ const Register = ({ handleUser }) => {
           <label>
             Email:
             <input
+              required= 'true'
               data-testid="email"
               placeholder="Email"
               type="text"
@@ -76,6 +77,7 @@ const Register = ({ handleUser }) => {
           <label>
             Password:
             <input
+              required= 'true'
               data-testid="password"
               placeholder="Password"
               type="password"
@@ -86,7 +88,6 @@ const Register = ({ handleUser }) => {
           <br />
           
           <button type="submit">Register</button>
-        </fieldset>
       </form>
     </div>
   );

@@ -103,9 +103,7 @@ const handleLogin = async (username, password) => {
   return (
     <CapsuleProvider message={notification} isError={isError}>
 
-      <div>
         <Navigation user={user} handleLogout={handleLogout}/>
-      </div>
       <Notification message={notification} isError={isError} />
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -114,10 +112,8 @@ const handleLogin = async (username, password) => {
         <Route path='/login' element={<LoginForm handleLogin={handleLogin}  handleUser={handleUser}/>}/>
         <Route path='/register' element={<Register handleUser={handleUser}/>}/>
       </Routes>
-      <div style={{flexGrow: 1}}></div>
-      <div>
+      <div className='empty'></div>
         <Footer />
-      </div>
 
     </CapsuleProvider>
   )

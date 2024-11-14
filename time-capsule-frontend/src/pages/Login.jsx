@@ -34,7 +34,7 @@ const LoginForm = ({ handleLogin, handleUser}) => {
             placeholder="Username"
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)} // Update username
+            onChange={(e) => setUsername(e.target.value)}
           />
         </label>
         <br />
@@ -46,7 +46,7 @@ const LoginForm = ({ handleLogin, handleUser}) => {
             placeholder="Password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Update password
+            onChange={(e) => setPassword(e.target.value)} 
           />
         </label>
         <br />

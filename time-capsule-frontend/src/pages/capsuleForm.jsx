@@ -2,9 +2,6 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useCapsule } from "../context/capsuleContext";
 
-const padding = {
-    paddingTop:10
-}
 
 const CapsuleForm =  () => {
     const [title, setTitle] = useState('');
@@ -50,67 +47,71 @@ const CapsuleForm =  () => {
     }
 
     return (
-<div style={padding}>
+<div>
     <form onSubmit={handleSubmit}>
-        <fieldset style={padding}>
-            <legend>Submit a Capsule</legend>
             
-            <div style={padding}>
+                    <div>
                         <label htmlFor="title">Title:</label>
                         <input 
+                            data-testid="title"
                             type="text"
                             id="title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                        />
+                            />
                     </div>
 
-                    <div style={padding}>
+                    <div>
                         <label htmlFor="content">Capsule Content:</label> <br/>
                         <textarea
+                            data-testid="content"
+                            rows="4"
                             id="content"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
-                        />
+                            />
                     </div>
 
-                    <div style={padding}>
+                    <div>
                         <label htmlFor="sendTo">To (Write Email):</label>
                         <input
+                            data-testid="toemail"
                             type="email"
                             id="sendTo"
                             value={sendTo}
                             onChange={(e) => setSendTo(e.target.value)}
                             placeholder="example@example.com"
-                        />
+                            />
                     </div>
 
-                    <div style={padding}>
+                    <div>
                         <label htmlFor="date">Select Date:</label>
                         <input 
+                            data-testid="date"
                             type="date"
                             id="date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             min={today}
-                        />
+                            />
                     </div>
 
-            <div style={padding}>
-                <label htmlFor="fileInput">Upload File:</label>
+            <div>
+                <label htmlFor="fileInput" className="file-upload">Upload File:</label>
                 <input 
                     type="file"
+                    data-testid="fileinput"
                     id="fileInput"
                     accept="image/*,video/*,audio/*"
                     ref={fileInput}
+                    style={{ display: 'none' }}
                 />
             </div>
             
-            <div style={padding}>
+            <div >
                 <button type="submit">Submit</button> <></>
                 <button type="button" onClick={handleReset}>Reset</button>
             </div>
-        </fieldset>
     </form>
 </div>
     )

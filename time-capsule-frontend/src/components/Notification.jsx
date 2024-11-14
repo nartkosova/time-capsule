@@ -20,6 +20,7 @@ const Notification = ({ message, isError }) => {
     textAlign: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
+    position: 'sticky'
   };
 
   return (

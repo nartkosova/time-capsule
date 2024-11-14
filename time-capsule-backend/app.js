@@ -8,6 +8,8 @@ const usersRouter = require('./controllers/users')
 const capsulesRouter = require('./controllers/capsules')
 const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
+const path = require('path')
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -32,6 +34,10 @@ app.use((error, request, response, next) => {
   }
   next(error)
 })
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
 
 
 module.exports = app;

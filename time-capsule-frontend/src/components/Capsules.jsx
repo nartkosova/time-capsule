@@ -23,9 +23,9 @@ const Capsules = () => {
         fetchUserCapsules()
     }, [setCapsules, userId])
 
-    if (!capsules.length) {
+    if (!capsules.length && userId) {
         return <p>No capsules found, create one now!</p>
-    } else if (token === '') {
+    } else if (!token) {
         return <p>Login or Register to create a capsule!</p>
     }
 

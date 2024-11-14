@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 const baseUrl = '/api/capsules'
 
 let token = null
@@ -32,7 +33,7 @@ const deleteCapsule = async (id) => {
   return response.data
 }
 
-const getCapsule = async (id) => {
+const getCapsule = async () => {
   const config = {
     headers: { Authorization: token },
   }
