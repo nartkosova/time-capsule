@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 const Notification = ({ message, isError }) => {
   if (message === null) {
-    return null;
+    return null
   }
 
   const notificationStyle = {
@@ -20,18 +20,14 @@ const Notification = ({ message, isError }) => {
     textAlign: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
-    position: 'sticky'
-  };
+    position: 'sticky',
+  }
 
-  return (
-    <div style={notificationStyle}>
-      {message}
-    </div>
-  );
-};
+  return <div style={notificationStyle}>{message}</div>
+}
 Notification.propTypes = {
   message: PropTypes.string,
-  isError: PropTypes.bool
-};
+  isError: PropTypes.bool,
+}
 
-export default Notification;
+export default Notification

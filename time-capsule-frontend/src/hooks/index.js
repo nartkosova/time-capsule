@@ -10,10 +10,11 @@ export const useField = (name) => {
     setValue('')
   }
   return {
-    input:{
+    input: {
       name,
       value,
-      onChange,},
-    reset
+      onChange,
+    },
+    reset,
   }
 }

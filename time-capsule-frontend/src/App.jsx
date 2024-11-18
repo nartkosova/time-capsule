@@ -1,5 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom'
 import Home from './pages/Home'
 import CapsuleForm from './pages/capsuleForm'
 import Navigation from './components/navBar'
@@ -25,13 +30,11 @@ const App = () => {
   const [notification, setNotification] = useState(null)
   const [isError, setIsError] = useState(false)
   const navigate = useNavigate()
-  
+
   useEffect(() => {
-    capsuleService.getCapsule().then(capsules =>
-      setCapsules( capsules )
-    )  
+    capsuleService.getCapsule().then((capsules) => setCapsules(capsules))
   }, [])
-   useEffect(() => {
+  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedCapsuleappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -40,15 +43,13 @@ const App = () => {
     }
   }, [])
 
-const handleLogin = async (username, password) => {
+  const handleLogin = async (username, password) => {
     try {
       const user = await loginService.login({
         username,
         password,
       })
-      window.localStorage.setItem(
-        'loggedCapsuleappUser', JSON.stringify(user)
-      ) 
+      window.localStorage.setItem('loggedCapsuleappUser', JSON.stringify(user))
       capsuleService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -61,10 +62,10 @@ const handleLogin = async (username, password) => {
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
-      }, 5000);
+      }, 5000)
     }
   }
-  const handleLogout =  () => {
+  const handleLogout = () => {
     window.localStorage.removeItem('loggedCapsuleappUser')
     capsuleService.setToken(null)
     setUser(null)
@@ -78,9 +79,7 @@ const handleLogin = async (username, password) => {
         email,
         password,
       })
-      window.localStorage.setItem(
-        'loggedCapsuleappUser', JSON.stringify(user)
-      ) 
+      window.localStorage.setItem('loggedCapsuleappUser', JSON.stringify(user))
       capsuleService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -95,26 +94,35 @@ const handleLogin = async (username, password) => {
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
-      }, 5000);
-      console.log("Failed to create user, make sure everything is correct", exception)
+      }, 5000)
+      console.log(
+        'Failed to create user, make sure everything is correct',
+        exception
+      )
     }
   }
 
   return (
     <CapsuleProvider message={notification} isError={isError}>
-
-        <Navigation user={user} handleLogout={handleLogout}/>
+      <Navigation user={user} handleLogout={handleLogout} />
       <Notification message={notification} isError={isError} />
       <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/create' element={<CapsuleForm />}/>
-        <Route path='/about' element={<About />}/>
-        <Route path='/login' element={<LoginForm handleLogin={handleLogin}  handleUser={handleUser}/>}/>
-        <Route path='/register' element={<Register handleUser={handleUser}/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/create" element={<CapsuleForm />} />
+        <Route path="/about" element={<About />} />
+        <Route
+          path="/login"
+          element={
+            <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
+          }
+        />
+        <Route
+          path="/register"
+          element={<Register handleUser={handleUser} />}
+        />
       </Routes>
-      <div className='empty'></div>
-        <Footer />
-
+      <div className="empty"></div>
+      <Footer />
     </CapsuleProvider>
   )
 }

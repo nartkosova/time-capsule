@@ -1,27 +1,27 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const usersRouter = require('express').Router();
-const User = require('../models/user');
-require('dotenv').config();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const usersRouter = require("express").Router();
+const User = require("../models/user");
+require("dotenv").config();
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post("/", async (request, response) => {
   const { username, email, name, surname, password, role } = request.body;
 
   if (!username || !email || !name || !surname || !password) {
     return response.status(400).json({
-      error: 'All fields are required!',
+      error: "All fields are required!",
     });
   }
   if (password.length < 8) {
     return response.status(400).json({
-      error: 'Password must be at least 8 characters',
-    })
+      error: "Password must be at least 8 characters",
+    });
   }
 
   const existingUser = await User.findOne({ $or: [{ username }, { email }] });
   if (existingUser) {
     return response.status(400).json({
-      error: 'Username or email already exists!',
+      error: "Username or email already exists!",
     });
   }
 
@@ -34,7 +34,7 @@ usersRouter.post('/', async (request, response) => {
     name,
     surname,
     passwordHash,
-    role
+    role,
   });
 
   try {
@@ -45,7 +45,9 @@ usersRouter.post('/', async (request, response) => {
       email: savedUser.email,
       id: savedUser._id,
     };
-    const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(userForToken, process.env.SECRET, {
+      expiresIn: "1h",
+    });
 
     response.status(201).json({
       token,
@@ -57,15 +59,19 @@ usersRouter.post('/', async (request, response) => {
       id: savedUser._id,
     });
   } catch (error) {
-    console.error("ERROR CREATING ", error)
-    console.error(error.stack)
-    response.status(500).json({ error: 'User creation failed. Please try again.' });
+    console.error("ERROR CREATING ", error);
+    console.error(error.stack);
+    response
+      .status(500)
+      .json({ error: "User creation failed. Please try again." });
   }
 });
-usersRouter.get('/', async (request, response) => {
-  const users = await User
-    .find({})
-    .populate('capsules', { title: 1, content: 1, date: 1 });
+usersRouter.get("/", async (request, response) => {
+  const users = await User.find({}).populate("capsules", {
+    title: 1,
+    content: 1,
+    date: 1,
+  });
   response.json(users);
 });
 

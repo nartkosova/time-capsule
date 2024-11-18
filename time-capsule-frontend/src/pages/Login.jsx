@@ -1,33 +1,29 @@
-// import { useField } from "../hooks/index" 
-import { useState } from "react"
-import Register from "./Register"
-import PropTypes from "prop-types"
-// import { useNavigate } from "react-router-dom"  
+// import { useField } from "../hooks/index"
+import { useState } from 'react'
+import Register from './Register'
+import PropTypes from 'prop-types'
+// import { useNavigate } from "react-router-dom"
 
-const LoginForm = ({ handleLogin, handleUser}) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const LoginForm = ({ handleLogin, handleUser }) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [registerVisible, setRegisterVisible] = useState(false)
-  // const navigate = useNavigate() 
-  
+  // const navigate = useNavigate()
+
   const onSubmit = (event) => {
     event.preventDefault()
-    handleLogin(username, password);
-    setUsername("")
-    setPassword("")
+    handleLogin(username, password)
+    setUsername('')
+    setPassword('')
   }
-  
 
   const hideRegister = { display: registerVisible ? 'none' : '' }
   const showRegister = { display: registerVisible ? '' : 'none' }
 
   return (
-    <section>
+    <div>
       <form onSubmit={onSubmit}>
-
-          <legend>Login</legend>
-
-          <label>
+        <label>
           Username:
           <input
             data-testid="username"
@@ -37,7 +33,6 @@ const LoginForm = ({ handleLogin, handleUser}) => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
-        <br />
 
         <label>
           Password:
@@ -46,30 +41,34 @@ const LoginForm = ({ handleLogin, handleUser}) => {
             placeholder="Password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} 
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <br />
-          
-          <button type="submit">Login</button>
 
+        <div className="button-container">
+          <button type="submit">Login</button>
+        </div>
       </form>
-      <div>
-        <div style={hideRegister}>
-          <p>Don&apos;t have an account?</p>
-          <button onClick={() => setRegisterVisible(true)}>Register now</button>
+      <main>
+        <div className="button-container">
+          <div style={hideRegister}>
+            <p>Don&apos;t have an account?</p>
+            <button onClick={() => setRegisterVisible(true)}>
+              Register now
+            </button>
+          </div>
         </div>
 
         <div style={showRegister}>
-          <Register handleUser={handleUser}/>
+          <Register handleUser={handleUser} />
           <button onClick={() => setRegisterVisible(false)}>I have one!</button>
         </div>
-      </div>
-    </section>
+      </main>
+    </div>
   )
 }
 LoginForm.propTypes = {
   handleLogin: PropTypes.func,
-  handleUser: PropTypes.func
+  handleUser: PropTypes.func,
 }
 export default LoginForm

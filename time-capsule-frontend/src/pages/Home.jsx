@@ -1,30 +1,46 @@
-import { Link } from "react-router-dom";
-import Capsules from "../components/Capsules";
+import { Link } from 'react-router-dom'
+import Capsules from '../components/Capsules'
 
 const Home = () => {
-    return (
-      <main>
-        <h1>Welcome to Time Capsule</h1>
-        <p className="text-lg mb-6">
-            Create your personal digital time capsule and immortalize your most cherished memories. 
-            Write heartfelt letters, upload photos, or record videos, 
-            and set a future date for when your time capsule will be unlocked. Whether it&apos;s for yourself or someone special, 
-            our platform ensures that your memories remain safely stored, waiting to be rediscovered when the time is right.
-            Start your journey today—capture the present, for a future that awaits.
-        </p>
-        <h2>Create a capsule now!</h2>
-        <p>
+  return (
+    <>
+      <div className="hero">
+        <div className="hero-conent">
+          <h1>Welcome to Time Capsule</h1>
+          <p>Your digital time machine to the future.</p>
+          <div className="button-container">
             <Link to="/create">
-                <button>
-                    Create
-                </button>
+              <button>Create your Time Capsule</button>
             </Link>
-        </p>       
-        <section>
-            <Capsules />
-        </section>
-      </main>
-    )
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <h2>Why Choose Time Capsule?</h2>
+        <div>
+          <h3>Write Letters</h3>
+          <p>Send messages to your future self or loved ones.</p>
+        </div>
+        <div>
+          <h3>Upload Memories</h3>
+          <p>Store photos, videos, and more in your personal vault.</p>
+        </div>
+        <div>
+          <h3>Set a Future Date</h3>
+          <p>Unlock your memories when the time is right.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>How It Works</h2>
+        <p>Write a capsule, select date and send!</p>
+      </section>
+      <section>
+        <Capsules />
+      </section>
+    </>
+  )
 }
 
 export default Home

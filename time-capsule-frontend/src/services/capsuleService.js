@@ -4,7 +4,7 @@ const baseUrl = '/api/capsules'
 
 let token = null
 
-const setToken = newToken => {
+const setToken = (newToken) => {
   token = `Bearer ${newToken}`
 }
 
@@ -18,15 +18,15 @@ const createCapsule = async (capsuleData) => {
 
 const updateCapsule = async (id, capsuleData) => {
   const config = {
-    headers: { Authorization: token }, 
+    headers: { Authorization: token },
   }
   const request = axios.put(`${baseUrl}/${id}`, capsuleData, config)
-  return request.then(response => response.data)
+  return request.then((response) => response.data)
 }
 
 const deleteCapsule = async (id) => {
   const config = {
-    headers: { Authorization: token }, 
+    headers: { Authorization: token },
   }
   const request = axios.delete(`${baseUrl}/${id}`, config)
   const response = await request
@@ -46,4 +46,11 @@ const getCapsulesByUser = async (userId) => {
   return response.data
 }
 
-export default { createCapsule, deleteCapsule, updateCapsule, getCapsule, setToken, getCapsulesByUser}
+export default {
+  createCapsule,
+  deleteCapsule,
+  updateCapsule,
+  getCapsule,
+  setToken,
+  getCapsulesByUser,
+}
