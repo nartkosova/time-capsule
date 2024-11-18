@@ -20,4 +20,5 @@
 | 14/11/24 | 3 | Changed styles, worked on figma layout, added some small changes. Tried fixing mongoDb error. |
 | 15/11/24 | 2 | Worked on layout, added prettier for cleaner code. |
 | 18/11/24 | 2 | Worked on design, added navbar feature. |
+| | 2 | Made the website prettier |
 | total | 48 | | 

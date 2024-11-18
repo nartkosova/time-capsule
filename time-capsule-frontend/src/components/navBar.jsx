@@ -20,9 +20,9 @@ const Navigation = ({ user, handleLogout }) => {
       const currentScroll =
         window.pageYOffset || document.documentElement.scrollTop
 
-      if (currentScroll > lastScrollTop && currentScroll > 100) {
+      if (currentScroll > lastScrollTop && currentScroll > 50) {
         setIsVisible(false)
-      } else if (currentScroll < lastScrollTop || currentScroll < 100) {
+      } else if (currentScroll < lastScrollTop || currentScroll < 200) {
         setIsVisible(true)
       }
 

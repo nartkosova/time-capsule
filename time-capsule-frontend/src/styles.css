@@ -9,11 +9,11 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
-  background-color: #eeeeee;
-  color: #eeeeee;
+  background-color: #f2f4fb;
+  color: #f2f4fb;
   margin: 0;
   line-height: 1.6;
-  /* padding-top: 83px; */
+  padding-top: 83px;
   /* padding-top: auto; */
   min-height: 100vh;
 }
@@ -21,6 +21,7 @@ body {
   position: relative;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
@@ -36,7 +37,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('assets/stars-background.gif');
+  background-image: url('assets/stars-bg4.gif');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -61,27 +62,32 @@ p {
 }
 main,
 section,
-form,
-fieldset {
+form{
   flex: 1;
   align-items: center !important;
   justify-content: center;
-  margin: 1rem auto;
+  margin: 2rem auto;
   max-width: 800px;
-  padding: 1rem;
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  border-color: #cf7bff !important;
+  padding: .7rem;
+  background-color: #f2f4fb;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  border-color: #d22780 !important;
   border-style: solid;
   border-width: 2px;
+  transition:
+  transform 0.3s ease;
+}
+form:hover,
+section:hover{
+  transform: translateY(-6px);
 }
 
 h1,
 h2,
 h3 {
   font-family: 'Roboto', sans-serif;
-  color: #eaeaea;
-  text-align: center;
+  color: #272727;
+  /* text-align: center; */
 }
 
 h1 {
@@ -98,41 +104,29 @@ p {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 1rem;
   line-height: 1.5;
-  color: #d3d3d3;
+  color: #292929;
 }
 
 a {
-  color: #cf7bff;
+  color: #d22780;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #f5af47;
+  color: #f8b500;
 }
 
 form {
-  background-color: #2c2c2c;
   padding: 2rem;
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(0, 255, 255, 0.5);
   max-width: 600px;
   margin: 2rem auto;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-form:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 30px rgba(0, 255, 255, 0.7);
 }
 
 label {
   font-weight: bold;
   font-size: 1.2rem;
-  color: #cf7bff;
+  color: #d22780;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 0.5rem;
@@ -145,9 +139,9 @@ textarea {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
-  border: 2px solid #cf7bff;
-  background-color: #333333;
-  color: #ffffff;
+  border: 2px solid #d22780;
+  background-color: #f2f4fb;
+  color: #292929;
   font-size: 1rem;
   box-sizing: border-box;
   transition:
@@ -157,7 +151,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border-color: #f5af47;
+  border-color: #f8b500;
   outline: none;
   box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
 }
@@ -168,9 +162,9 @@ textarea:focus {
   margin-bottom: 23px;
   font-size: 16px;
   color: #ffffff;
-  background-color: #cf7bff;
+  background-color: #d22780;
   border: none;
-  border-radius: 30px;
+  border-radius: 10px;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
@@ -178,8 +172,8 @@ textarea:focus {
 }
 
 .file-upload:hover {
-  background-color: #f5af47;
-  transform: scale(1.05);
+  background-color: #f8b500;
+  transform: scale(1.1);
 }
 
 input,
@@ -206,24 +200,23 @@ button {
 }
 
 button {
-  background: linear-gradient(45deg, #cf7bff, #f5af47);
+  background: #f8b500;
   text-align: center;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   font-size: 1.2rem;
+  color: #eeee;
   font-weight: bold;
   transition:
-    transform 0.3s ease,
+    scale 0.3s ease,
     box-shadow 0.3s ease;
   margin-top: 1rem;
 }
 
 button:hover {
-  box-shadow:
-    0 0 15px rgba(255, 64, 129, 0.8),
-    0 0 25px rgba(0, 188, 212, 0.8);
+scale: 110%;
 }
 
 ul {
@@ -233,16 +226,20 @@ ul {
 }
 
 li {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background: #2c2c2c;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  color: #292929;
+  padding: 0.5rem;
+}
+blockquote {
+  border-left: solid;
+  border-width: 2px;
+  border-color: #d22780;
 }
 
 footer {
-  background-color: #1c1c1c;
-  color: #a1a1a1;
+  border-top: solid;
+  border-width: 2px;
+  border-color: #d22780;
+  background-color: #f2f4fb;
   padding: 2rem;
   text-align: center;
   font-size: 0.9rem;
@@ -251,7 +248,7 @@ footer {
 }
 
 .navbar {
-  background-color: transparent;
+  background-color: #f2f4fbb0;
   padding: 16px;
   display: flex;
   position: fixed;
@@ -262,6 +259,9 @@ footer {
   align-items: center;
   z-index: 1000;
   transition: transform 0.3s ease;
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: #d22780;
 }
 
 .navbar.hidden {
@@ -273,14 +273,14 @@ footer {
 }
 
 nav a {
-  color: #cf7bff;
+  color: #d22780;
   margin: 0 1rem;
   transition: color 0.3s ease;
   text-decoration: none;
 }
 
 nav a:hover {
-  color: #f5af47;
+  color: #f8b500;
 }
 
 .time-capsule {
@@ -297,22 +297,22 @@ nav a:hover {
 
 .time-capsule:hover {
   text-shadow:
-    0 0 6px #f37269,
-    0 0 13px #f37269;
+    0 0 6px #f8b500,
+    0 0 13px #f8b500;
 }
 
 .hamburger {
   display: none;
   font-size: 2rem;
   cursor: pointer;
-  color: #cf7bff;
+  color: #d22780;
   padding: 5px;
   align-self: center;
   transition: color 0.3s ease;
 }
 
 .hamburger:hover {
-  color: #f5af47;
+  color: #f8b500;
 }
 
 .mobile-nav-links {
@@ -328,6 +328,11 @@ nav a:hover {
   .hamburger {
     display: block;
   }
+  body {
+    margin-top: 1.3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 
   .nav-links {
     display: none;
@@ -341,6 +346,7 @@ nav a:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     z-index: 999;
   }
+
 
   .mobile-nav-links {
     display: flex;
@@ -374,7 +380,7 @@ nav a:hover {
 }
 
 nav button {
-  background: linear-gradient(45deg, #cf7bff, #f5af47);
+  background: linear-gradient(45deg, #d22780, #f8b500);
   color: #ffffff;
   border: none;
   padding: 0.5rem 1rem;
@@ -383,7 +389,7 @@ nav button {
 }
 
 nav button:hover {
-  background: linear-gradient(45deg, #f5af47, #cf7bff);
+  background: linear-gradient(45deg, #f8b500, #d22780);
 }
 
 .empty {

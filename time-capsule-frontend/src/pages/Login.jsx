@@ -49,10 +49,8 @@ const LoginForm = ({ handleLogin, handleUser }) => {
           <button type="submit">Login</button>
         </div>
       </form>
-      <main>
-        <div className="button-container">
           <div style={hideRegister}>
-            <p>Don&apos;t have an account?</p>
+        <div className="button-container">
             <button onClick={() => setRegisterVisible(true)}>
               Register now
             </button>
@@ -61,9 +59,10 @@ const LoginForm = ({ handleLogin, handleUser }) => {
 
         <div style={showRegister}>
           <Register handleUser={handleUser} />
+          <div className="button-container">
           <button onClick={() => setRegisterVisible(false)}>I have one!</button>
+          </div>
         </div>
-      </main>
     </div>
   )
 }
