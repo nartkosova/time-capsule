@@ -49,20 +49,18 @@ const LoginForm = ({ handleLogin, handleUser }) => {
           <button type="submit">Login</button>
         </div>
       </form>
-          <div style={hideRegister}>
+      <div style={hideRegister}>
         <div className="button-container">
-            <button onClick={() => setRegisterVisible(true)}>
-              Register now
-            </button>
-          </div>
+          <button onClick={() => setRegisterVisible(true)}>Register now</button>
         </div>
+      </div>
 
-        <div style={showRegister}>
-          <Register handleUser={handleUser} />
-          <div className="button-container">
+      <div style={showRegister}>
+        <Register handleUser={handleUser} />
+        <div className="button-container">
           <button onClick={() => setRegisterVisible(false)}>I have one!</button>
-          </div>
         </div>
+      </div>
     </div>
   )
 }

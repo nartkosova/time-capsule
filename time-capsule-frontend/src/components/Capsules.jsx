@@ -23,6 +23,51 @@ const Capsules = () => {
     fetchUserCapsules()
   }, [setCapsules, userId])
 
+  const reformatDate = (dateString) => {
+    const [day, month, year] = dateString.split('/')
+    return `${year}-${month}-${day}`
+  }
+
+  const getTimeRemaining = (dateString) => {
+    const formattedDate = dateString.includes('/')
+      ? reformatDate(dateString)
+      : dateString
+
+    const now = new Date()
+    const target = new Date(formattedDate)
+
+    if (isNaN(target.getTime())) {
+      return 'Invalid date format!'
+    }
+
+    if (target <= now) {
+      return 'The capsule is already open!'
+    }
+
+    let years = target.getFullYear() - now.getFullYear()
+    let months = target.getMonth() - now.getMonth()
+    let days = target.getDate() - now.getDate()
+
+    if (days < 0) {
+      months -= 1
+      const lastMonth = new Date(target.getFullYear(), target.getMonth(), 0)
+      days += lastMonth.getDate()
+    }
+
+    if (months < 0) {
+      years -= 1
+      months += 12
+    }
+
+    if (years) {
+      return `${years} Years, ${months} Months, ${days} Days.`
+    } else if (!years) {
+      return `${months} Months, ${days} Days.`
+    } else if (!months) {
+      return `${days} Days.`
+    }
+  }
+
   if (!capsules.length && userId) {
     return <p>No capsules found, create one now!</p>
   } else if (!token) {
@@ -34,11 +79,12 @@ const Capsules = () => {
       <h2>Your Capsules:</h2>
       <ul>
         {capsules.map((capsule) => (
-          <li key={capsule.id}>
-            <h3>{capsule.title}:</h3> <br />
-            {capsule.content} <br />
-            Opens on: ({capsule.date}) <br />
-            Capsule was sent on: ({capsule.sent})
+          <li key={capsule.id} className='capsule'>
+            <h3>{capsule.title}</h3>
+            <p>{capsule.content}</p>
+            <p>Opens on: {capsule.date}</p>
+            <p>Time remaining: {getTimeRemaining(capsule.date)}</p>
+            <p>Capsule was sent on: {capsule.dateSent}</p>
           </li>
         ))}
       </ul>

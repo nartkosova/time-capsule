@@ -55,12 +55,8 @@ const Navigation = ({ user, handleLogout }) => {
 
         {user ? (
           <>
-            <span style={{ padding: '10px' }}>
-              Logged in as {user.username}
-            </span>
-            <button onClick={onLogout} style={{ padding: '10px' }}>
-              Logout
-            </button>
+            <span>Logged in as {user.username}</span>
+            <button onClick={onLogout}>Logout</button>
           </>
         ) : (
           <>

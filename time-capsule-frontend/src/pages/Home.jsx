@@ -6,12 +6,15 @@ const Home = () => {
     <>
       <div className="hero">
         <div className="hero-conent">
-          <h1>Welcome to Time Capsule</h1>
-          <p>Your digital time machine to the future.</p>
+        <div className="welcome-container">
+          <h1 className='welcome'>Welcome to</h1>
+          <h1 className='tc'>Time Capsule</h1>
+          <h2 className='hero-text'>Preserve your memories for the future safe, secure, and digital</h2>
           <div className="button-container">
             <Link to="/create">
-              <button>Create your Time Capsule</button>
+              {/* <button className='create'>Create your Time Capsule</button> */}
             </Link>
+          </div>
           </div>
         </div>
       </div>

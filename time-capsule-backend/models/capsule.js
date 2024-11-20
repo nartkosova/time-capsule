@@ -26,7 +26,7 @@ const capsuleSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: String,
+    type: Date,
     required: true,
   },
   sendTo: {
@@ -38,7 +38,11 @@ const capsuleSchema = new mongoose.Schema({
     type: Buffer,
   },
   sent: {
-    type: String,
+    type: Boolean,
+    default: false,
+  },
+  dateSent: {
+    type: Date,
     default: Date.now,
   },
   user: {
@@ -52,10 +56,13 @@ capsuleSchema.set("toJSON", {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
     delete returnedObject.__v;
-    if (returnedObject.date) {
+    if (returnedObject.date && returnedObject.sent) {
       returnedObject.date = new Date(returnedObject.date).toLocaleDateString(
         "en-GB",
       );
+      returnedObject.sent = new Date(returnedObject.sent).toLocaleDateString(
+        "en-GB" 
+      )
     }
   },
 });

@@ -21,4 +21,6 @@
 | 15/11/24 | 2 | Worked on layout, added prettier for cleaner code. |
 | 18/11/24 | 2 | Worked on design, added navbar feature. |
 | | 2 | Made the website prettier |
-| total | 48 | | 
+| 19/11/24 | 3 | Worked on capsule display information and css. |
+| 20/11/24 | 4 | Finalising css |
+| total | 55 | | 
