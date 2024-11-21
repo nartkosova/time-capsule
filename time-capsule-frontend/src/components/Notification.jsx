@@ -6,12 +6,12 @@ const Notification = ({ message, isError }) => {
   }
 
   const notificationStyle = {
-    fontSize: '14px',
     padding: '10px 15px',
-    marginBottom: '10px',
+    marginBottom: '1rem',
+    marginTop: '1rem',
     borderRadius: '6px',
     backgroundColor: isError ? '#ffcccc' : '#ccffcc',
-    color: isError ? '#ff0000' : '#00cc00',
+    color: isError ? '#272727' : '#272727',
     border: `1px solid ${isError ? '#ff0000' : '#00cc00'}`,
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     transition: 'all 0.3s ease-in-out',
@@ -23,7 +23,9 @@ const Notification = ({ message, isError }) => {
     position: 'sticky',
   }
 
-  return <div style={notificationStyle}>{message}</div>
+  return (<div style={notificationStyle}>
+   <p>{message}</p>
+   </div>)
 }
 Notification.propTypes = {
   message: PropTypes.string,

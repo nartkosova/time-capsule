@@ -23,4 +23,5 @@
 | | 2 | Made the website prettier |
 | 19/11/24 | 3 | Worked on capsule display information and css. |
 | 20/11/24 | 4 | Finalising css |
-| total | 55 | | 
+| 21/11/24 | 4 | Added some changes to css (Almost done). |
+| total | 59 | | 

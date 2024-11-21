@@ -56,7 +56,7 @@ const Navigation = ({ user, handleLogout }) => {
         {user ? (
           <>
             <span>Logged in as {user.username}</span>
-            <button onClick={onLogout}>Logout</button>
+            <button className='logout' onClick={onLogout}>Logout</button>
           </>
         ) : (
           <>
