@@ -1,6 +1,6 @@
-import { useRef } from 'react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useCapsule } from '../context/capsuleContext'
+import { Buffer } from 'buffer'
 
 const CapsuleForm = () => {
   const [title, setTitle] = useState('')
@@ -10,14 +10,16 @@ const CapsuleForm = () => {
   const fileInput = useRef()
   const today = new Date().toISOString().split('T')[0]
   const { addCapsule } = useCapsule()
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('Form submitted')
     const file = fileInput.current.files[0]
 
     if (file) {
-      console.log(file.type)
+      const arrayBuffer = await file.arrayBuffer()
+      const buffer = Buffer.from(arrayBuffer)
+      console.log(buffer)
     }
 
     const capsuleObject = {
@@ -118,7 +120,7 @@ const CapsuleForm = () => {
         </div>
 
         <div className="button-container">
-          <button type="submit">Submit</button> <></>
+          <button type="submit" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Submit</button> <></>
           <button type="button" onClick={handleReset}>
             Reset
           </button>

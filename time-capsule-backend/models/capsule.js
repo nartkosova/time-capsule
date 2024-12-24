@@ -35,7 +35,8 @@ const capsuleSchema = new mongoose.Schema({
     match: [/.+@.+\..+/, "Please enter a valid email adress."],
   },
   fileInput: {
-    type: Buffer,
+    data: Buffer,
+    contentType: String,
   },
   sent: {
     type: Boolean,
@@ -43,7 +44,7 @@ const capsuleSchema = new mongoose.Schema({
   },
   dateSent: {
     type: Date,
-    default: Date.now,
+    default: () => new Date(),
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

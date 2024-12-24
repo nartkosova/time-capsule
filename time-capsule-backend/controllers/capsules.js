@@ -45,7 +45,10 @@ capsulesRouter.post("/", async (request, response) => {
       title: body.title,
       content: body.content,
       date: body.date,
-      fileInput: body.fileInput,
+      fileInput: {
+        data: body.buffer,
+        contentType: body.mimetype,
+      },
       user: user._id,
     });
     const savedcapsule = await newCapsule.save();
@@ -113,6 +116,19 @@ capsulesRouter.get("/user/:userId", async (request, response) => {
       .find({ user: userId })
       .populate("user", { username: 1, name: 1, id: 1 });
     response.json(userCapsules);
+  } catch (error) {
+    response.status(500).json({ error: "Something went wrong" });
+  }
+});
+capsulesRouter.get("/file/:id", async (request, response) => {
+  try {
+    const capsule = await capsule.findById(request.params.id);
+    if (!capsule || !capsule.fileInput) {
+      return response.status(404).json({ error: "File not found!" });
+    } else {
+      response.set("Content-Type", capsule.fileInput.contentType);
+      response.send(capsule.fileInput.data);
+    }
   } catch (error) {
     response.status(500).json({ error: "Something went wrong" });
   }

@@ -39,17 +39,17 @@ const Navigation = ({ user, handleLogout }) => {
   return (
     <nav className={`navbar ${isVisible ? 'visible' : 'hidden'}`}>
       <h3 className="time-capsule">
-        <Link to="/">Time Capsule</Link>
+        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Time Capsule</Link>
       </h3>
       <div className="hamburger" onClick={toggleMenu}>
         &#9776;
       </div>
 
       <div className={`nav-links ${menuActive ? 'active' : ''}`}>
-        <Link className="mobile-nav-links" to="/">
+        <Link className="mobile-nav-links" to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           Home
         </Link>
-        <Link className="mobile-nav-links" to="/create">
+        <Link className="mobile-nav-links" to="/create" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           Create
         </Link>
 
@@ -60,16 +60,16 @@ const Navigation = ({ user, handleLogout }) => {
           </>
         ) : (
           <>
-            <Link className="mobile-nav-links" to="/login">
+            <Link className="mobile-nav-links" to="/login" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Login
             </Link>
-            <Link className="mobile-nav-links" to="/register">
+            <Link className="mobile-nav-links" to="/register" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Register
             </Link>
           </>
         )}
 
-        <Link className="mobile-nav-links" to="/about">
+        <Link className="mobile-nav-links" to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           About
         </Link>
       </div>

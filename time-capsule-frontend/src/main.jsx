@@ -7,10 +7,10 @@ import './styles.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <CapsuleProvider>
-      <Router>
+      <Router> 
+    <CapsuleProvider> 
         <App />
-      </Router>
     </CapsuleProvider>
+      </Router>
   </StrictMode>
 )

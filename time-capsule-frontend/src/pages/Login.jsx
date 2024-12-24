@@ -46,12 +46,12 @@ const LoginForm = ({ handleLogin, handleUser }) => {
         </label>
 
         <div className="button-container">
-          <button type="submit">Login</button>
+          <button type="submit" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Login</button>
         </div>
       </form>
       <div style={hideRegister}>
         <div className="button-container">
-          <button onClick={() => setRegisterVisible(true)}>Register now</button>
+          <button onClick={() => {setRegisterVisible(true); window.scrollTo({ top: 0, behavior: 'smooth' })}}>Register now</button>
         </div>
       </div>
 

@@ -24,4 +24,5 @@
 | 19/11/24 | 3 | Worked on capsule display information and css. |
 | 20/11/24 | 4 | Finalising css |
 | 21/11/24 | 4 | Added some changes to css (Almost done). |
-| total | 59 | | 
+| 24/12/24 | 5 | Tried fixing image display for capsules, added a capsule preview page, added testing. Did some studying for the project |
+| total | 64 | | 

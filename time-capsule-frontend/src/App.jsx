@@ -18,6 +18,7 @@ import { CapsuleProvider } from './context/capsuleContext'
 import Register from './pages/Register'
 import userService from './services/userService'
 import Notification from './components/Notification'
+import capsulePreview from './pages/capsulePreview'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -120,6 +121,7 @@ const App = () => {
           path="/register"
           element={<Register handleUser={handleUser} />}
         />
+        <Route path="/capsule-preview" element={capsulePreview} />
       </Routes>
       <div className="empty"></div>
       <Footer />

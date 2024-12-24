@@ -85,6 +85,10 @@ const Capsules = () => {
             <p>Opens on: {capsule.date}</p>
             <p>Time remaining: {getTimeRemaining(capsule.date)}</p>
             <p>Capsule was sent on: {capsule.dateSent}</p>
+            {/* <img
+            src={`/api/capsules/file/${capsule.id}`}
+            alt='Capsule Image'
+            ></img> */}
           </li>
         ))}
       </ul>
