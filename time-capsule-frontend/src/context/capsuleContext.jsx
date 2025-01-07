@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { createContext, useContext, useState } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import capsuleService from '../services/capsuleService'
 import PropTypes from 'prop-types'
-import Notification from "../components/Notification"
+import Notification from '../components/Notification'
 
 const CapsuleContext = createContext()
 
@@ -21,16 +21,18 @@ export const CapsuleProvider = ({ children }) => {
       const returnedCapsule = await capsuleService.createCapsule(capsuleObject)
       if (returnedCapsule) {
         setCapsules((prevCapsules) => [...prevCapsules, returnedCapsule])
-        // console.log('New capsule created:', returnedCapsule)
       }
       navigate('/')
     } catch (error) {
-      setNotification('You need to be logged in to create a capsule!', error)
-      console.log(error)
+      if (error.response && error.response.status === 401) {
+        setNotification('You need to be logged in to create a capsule!')
+      } else {
+        setNotification('Failed to create capsule. Please try again.')
+      }
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
-      }, 5000);
+      }, 5000)
       console.error('Error adding capsule:', error)
     }
   }
@@ -48,9 +50,9 @@ export const CapsuleProvider = ({ children }) => {
 
   return (
     <CapsuleContext.Provider
-    value={{ capsules, setCapsules, addCapsule, deleteCapsule }}
+      value={{ capsules, setCapsules, addCapsule, deleteCapsule }}
     >
-    <Notification message={notification} isError={isError} />
+      <Notification message={notification} isError={isError} />
       {children}
     </CapsuleContext.Provider>
   )

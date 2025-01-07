@@ -82,7 +82,12 @@ const Register = ({ handleUser }) => {
           />
         </label>
         <div className="button-container">
-          <button type="submit">Register</button>
+          <button
+            type="submit"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            Register
+          </button>
         </div>
       </form>
     </div>
@@ -90,7 +95,7 @@ const Register = ({ handleUser }) => {
 }
 
 Register.propTypes = {
-  handleUser: PropTypes.func.isRequired,
+  handleUser: PropTypes.func,
 }
 
 export default Register

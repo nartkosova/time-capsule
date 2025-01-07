@@ -34,10 +34,7 @@ const capsuleSchema = new mongoose.Schema({
     // required: true,
     match: [/.+@.+\..+/, "Please enter a valid email adress."],
   },
-  fileInput: {
-    data: Buffer,
-    contentType: String,
-  },
+  fileInput: { type: String },
   sent: {
     type: Boolean,
     default: false,
@@ -54,21 +51,21 @@ const capsuleSchema = new mongoose.Schema({
 
 capsuleSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
 
     if (returnedObject.date) {
-      const formattedDate = new Date(returnedObject.date)
+      const formattedDate = new Date(returnedObject.date);
       if (!isNaN(formattedDate)) {
-        returnedObject.date = formattedDate.toLocaleDateString("en-GB")
+        returnedObject.date = formattedDate.toLocaleDateString("en-GB");
       }
     }
 
     if (returnedObject.dateSent) {
-      const formattedDateSent = new Date(returnedObject.dateSent)
+      const formattedDateSent = new Date(returnedObject.dateSent);
       if (!isNaN(formattedDateSent)) {
-        returnedObject.dateSent = formattedDateSent.toLocaleDateString("en-GB")
+        returnedObject.dateSent = formattedDateSent.toLocaleDateString("en-GB");
       }
     }
   },

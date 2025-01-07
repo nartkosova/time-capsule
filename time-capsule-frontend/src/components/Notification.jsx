@@ -8,7 +8,7 @@ const Notification = ({ message, isError }) => {
   const notificationStyle = {
     padding: '10px 15px',
     marginBottom: '1rem',
-    marginTop: '1rem',
+    marginTop: '2rem',
     borderRadius: '6px',
     backgroundColor: isError ? '#ffcccc' : '#ccffcc',
     color: isError ? '#272727' : '#272727',
@@ -23,9 +23,11 @@ const Notification = ({ message, isError }) => {
     position: 'sticky',
   }
 
-  return (<div style={notificationStyle}>
-   <p>{message}</p>
-   </div>)
+  return (
+    <div style={notificationStyle}>
+      <p>{message}</p>
+    </div>
+  )
 }
 Notification.propTypes = {
   message: PropTypes.string,

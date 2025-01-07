@@ -10,11 +10,17 @@ const Navigation = ({ user, handleLogout }) => {
   const onLogout = (event) => {
     event.preventDefault()
     handleLogout()
+    setMenuActive(false) 
   }
 
   const toggleMenu = () => {
     setMenuActive(!menuActive)
   }
+
+  const closeMenu = () => {
+    setMenuActive(false) 
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll =
@@ -22,6 +28,7 @@ const Navigation = ({ user, handleLogout }) => {
 
       if (currentScroll > lastScrollTop && currentScroll > 50) {
         setIsVisible(false)
+        setMenuActive(false) 
       } else if (currentScroll < lastScrollTop || currentScroll < 200) {
         setIsVisible(true)
       }
@@ -39,37 +46,84 @@ const Navigation = ({ user, handleLogout }) => {
   return (
     <nav className={`navbar ${isVisible ? 'visible' : 'hidden'}`}>
       <h3 className="time-capsule">
-        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Time Capsule</Link>
+        <Link
+          to="/"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            closeMenu()
+          }}
+        >
+          Time Capsule
+        </Link>
       </h3>
       <div className="hamburger" onClick={toggleMenu}>
         &#9776;
       </div>
 
-      <div className={`nav-links ${menuActive ? 'active' : ''}`}>
-        <Link className="mobile-nav-links" to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          Home
-        </Link>
-        <Link className="mobile-nav-links" to="/create" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+      <div
+        className={`nav-links 
+              ${menuActive ? 'active' : ''} 
+              ${isVisible ? 'visible' : 'hidden'}`}
+      >
+        <Link
+          className="mobile-nav-links"
+          to="/create"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            closeMenu()
+          }}
+        >
           Create
         </Link>
 
         {user ? (
           <>
-            <span>Logged in as {user.username}</span>
-            <button className='logout' onClick={onLogout}>Logout</button>
+            <span className="mobile-nav-links">
+              Logged in as {user.username}
+            </span>
+            <button
+              className="logout"
+              onClick={(event) => {
+                onLogout(event)
+                closeMenu()
+              }}
+            >
+              Logout
+            </button>
           </>
         ) : (
           <>
-            <Link className="mobile-nav-links" to="/login" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Link
+              className="mobile-nav-links"
+              to="/login"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                closeMenu()
+              }}
+            >
               Login
             </Link>
-            <Link className="mobile-nav-links" to="/register" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Link
+              className="mobile-nav-links"
+              to="/register"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                closeMenu()
+              }}
+            >
               Register
             </Link>
           </>
         )}
 
-        <Link className="mobile-nav-links" to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <Link
+          className="mobile-nav-links"
+          to="/about"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            closeMenu()
+          }}
+        >
           About
         </Link>
       </div>

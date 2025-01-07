@@ -25,4 +25,7 @@
 | 20/11/24 | 4 | Finalising css |
 | 21/11/24 | 4 | Added some changes to css (Almost done). |
 | 24/12/24 | 5 | Tried fixing image display for capsules, added a capsule preview page, added testing. Did some studying for the project |
-| total | 64 | | 
+| 01-07/01/25 | 3 | Added admin priviliges (Only admins can view api routes)|
+|| 5 | Fixed image upload with cloudinary and multer |
+|| 1 | Added testing and fixed navbar |
+| total | 73 | | 

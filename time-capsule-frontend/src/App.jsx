@@ -55,11 +55,9 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-      console.log('Navigating to home...')
       navigate('/')
     } catch (error) {
-      setNotification('Failed to login', error)
-      console.log(error)
+      setNotification('Failed to login')
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
@@ -96,10 +94,6 @@ const App = () => {
       setTimeout(() => {
         setNotification(null)
       }, 5000)
-      console.log(
-        'Failed to create user, make sure everything is correct',
-        exception
-      )
     }
   }
 

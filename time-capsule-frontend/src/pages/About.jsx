@@ -106,9 +106,8 @@ const About = () => {
 
         <h3>5. Deployment</h3>
         <p>
-          The app is designed to be deployed to platforms like{' '}
-          <strong>Render</strong> for the frontend and{' '}
-          <strong>MongoDB Atlas</strong> for the database.
+          The app can be deployed through a cloud platform like{' '}
+          <strong>Render</strong> or something similar.
         </p>
       </section>
     </div>

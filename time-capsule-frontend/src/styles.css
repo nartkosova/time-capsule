@@ -4,7 +4,7 @@
 body {
   display: flex;
   flex-direction: column;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #f2f4fb;
   margin: 0;
   line-height: 1.6;
@@ -13,7 +13,14 @@ body {
 }
 
 body {
-  background: linear-gradient(229deg, #f4d7ff, #fff5db, #d3fff4, #fbffc8, #d9e7ff);
+  background: linear-gradient(
+    229deg,
+    #f4d7ff,
+    #fff5db,
+    #d3fff4,
+    #fbffc8,
+    #d9e7ff
+  );
   background-size: 500% 500%;
 
   -webkit-animation: moveGradient 12s ease infinite;
@@ -22,19 +29,37 @@ body {
 }
 
 @-webkit-keyframes moveGradient {
-  0%{background-position:0% 99%}
-  50%{background-position:100% 2%}
-  100%{background-position:0% 99%}
+  0% {
+    background-position: 0% 99%;
+  }
+  50% {
+    background-position: 100% 2%;
+  }
+  100% {
+    background-position: 0% 99%;
+  }
 }
 @-moz-keyframes moveGradient {
-  0%{background-position:0% 99%}
-  50%{background-position:100% 2%}
-  100%{background-position:0% 99%}
+  0% {
+    background-position: 0% 99%;
+  }
+  50% {
+    background-position: 100% 2%;
+  }
+  100% {
+    background-position: 0% 99%;
+  }
 }
 @keyframes moveGradient {
-  0%{background-position:0% 99%}
-  50%{background-position:100% 2%}
-  100%{background-position:0% 99%}
+  0% {
+    background-position: 0% 99%;
+  }
+  50% {
+    background-position: 100% 2%;
+  }
+  100% {
+    background-position: 0% 99%;
+  }
 }
 h1 {
   font-size: 3rem;
@@ -54,7 +79,6 @@ form {
   max-width: 800px;
   padding: 0.7rem;
   background-color: #f2f4fb;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   border-color: #d22780 !important;
   border-style: solid;
   border-width: 2px;
@@ -68,7 +92,7 @@ section:hover {
 h1,
 h2,
 h3 {
-  color: #272727;
+  color: #4b4b4b;
 }
 
 h1 {
@@ -80,7 +104,7 @@ p {
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 1rem;
   line-height: 1.5;
-  color: #292929;
+  color: #626262;
 }
 
 a {
@@ -110,7 +134,7 @@ label {
 
 input,
 textarea {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
@@ -119,22 +143,18 @@ textarea {
   color: #292929;
   font-size: 1rem;
   box-sizing: border-box;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
 input:focus,
 textarea:focus {
   border-color: #f8b500;
   outline: none;
-  box-shadow: 0 0 10px rgba(255, 64, 129, 0.8);
 }
 
 .file-upload {
   display: inline-block;
   padding: 10px 20px;
-  margin-bottom: 23px;
   font-size: 16px;
   color: #ffffff;
   background-color: #d22780;
@@ -153,7 +173,6 @@ textarea:focus {
 
 input,
 textarea,
-/* button, */
 .file-upload {
   margin-top: 1rem;
 }
@@ -175,10 +194,18 @@ button {
   margin-bottom: 1rem;
 }
 
-.button-container {
+.button-container,
+.button-container2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.button-container2 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 button {
@@ -194,7 +221,8 @@ button {
   transition:
     scale 0.3s ease,
     box-shadow 0.3s ease;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
+  min-width: 100px;
 }
 
 button:hover {
@@ -217,7 +245,6 @@ blockquote {
   border-color: #d22780;
 }
 
-
 .navbar {
   background-color: #f2f4fb9d;
   padding: 12px;
@@ -233,6 +260,8 @@ blockquote {
   border-bottom: solid;
   border-width: 2px;
   border-color: #d22780;
+  min-height: 51px;
+  max-height: 51px;
 }
 
 .navbar.hidden {
@@ -246,12 +275,12 @@ blockquote {
 nav a,
 nav span {
   color: #d22780;
-  margin: 0 1rem;
+  /* margin: 0 1rem; */
   transition: color 0.3s ease;
   text-decoration: none;
 }
-nav span {
-  font-size: 1.3rem;
+nav a {
+  margin: 0 1rem;
 }
 nav a:hover {
   color: #f8b500;
@@ -298,14 +327,7 @@ nav a:hover {
   transition: color 0.3s ease;
   overflow-x: hidden;
 }
-.mobile-nav-links:hover {
-  border-bottom: solid;
-  border-width: 2px;
-  border-color: #f8b500;
-  padding-bottom: 1.6rem;
-}
-
-@media (max-width: 900px) {
+@media (max-width: 927px) {
   .hamburger {
     display: block;
   }
@@ -326,11 +348,13 @@ nav a:hover {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #f2f4fbe1;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    background-color: #f2f4fb9d;
     z-index: 999;
   }
-
+  nav span {
+    display: flex;
+    align-items: center;
+  }
   .mobile-nav-links {
     display: flex;
     width: 100%;
@@ -363,7 +387,6 @@ nav a:hover {
     width: 100%;
     text-align: left;
   }
-
 }
 
 nav button {
@@ -376,4 +399,15 @@ nav button {
 
 nav button:hover {
   background: #f8b500;
+}
+.content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.logout {
+  margin-left: 10px;
+  margin-bottom: 0;
 }

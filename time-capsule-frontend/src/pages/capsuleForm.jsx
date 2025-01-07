@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { useCapsule } from '../context/capsuleContext'
-import { Buffer } from 'buffer'
 
 const CapsuleForm = () => {
   const [title, setTitle] = useState('')
@@ -10,41 +9,67 @@ const CapsuleForm = () => {
   const fileInput = useRef()
   const today = new Date().toISOString().split('T')[0]
   const { addCapsule } = useCapsule()
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log('Form submitted')
-    const file = fileInput.current.files[0]
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [uploadError, setUploadError] = useState(null)
+  const [uploading, setUploading] = useState(false)
 
-    if (file) {
-      const arrayBuffer = await file.arrayBuffer()
-      const buffer = Buffer.from(arrayBuffer)
-      console.log(buffer)
+  const handleFileChange = (event) => {
+    const file = event.target.files && event.target.files[0]
+
+    const allowedTypes = ['image/', 'video/', 'audio/']
+    if (!allowedTypes.some((type) => file.type.startsWith(type))) {
+      setUploadError(
+        'Invalid file type. Please upload an image, video, or audio file.'
+      )
+      return
     }
 
-    const capsuleObject = {
-      title,
-      content,
-      sendTo,
-      date,
-      fileInput: file,
+    const maxSize = 20 * 1024 * 1024
+    if (file.size > maxSize) {
+      setUploadError('File size exceeds 20MB. Please upload a smaller file.')
+      return
     }
-    console.log('Capsule object:', capsuleObject)
+    setUploadError(null)
+    setSelectedFile(file)
 
-    await addCapsule(capsuleObject)
-    setTitle('')
-    setContent('')
-    setSendTo('')
-    setDate('')
-    fileInput.current.value = ''
+    console.log('Selected File:', file)
+    console.log('File Name:', file.name)
+    console.log('File Type:', file.type)
+    console.log('File Size:', (file.size / 1024 / 1024).toFixed(2) + ' MB')
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', selectedFile)
+      formData.append('title', title)
+      formData.append('content', content)
+      formData.append('sendTo', sendTo)
+      formData.append('date', date)
+
+      console.log('FormData:', formData)
+
+      await addCapsule(formData)
+      console.log(formData)
+      console.log('Capsule submitted successfully!')
+
+      handleReset()
+
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (error) {
+      console.error('Error submitting capsule:', error)
+    } finally {
+      setUploading(false)
+    }
+  }
   const handleReset = () => {
     setTitle('')
     setContent('')
     setSendTo('')
     setDate('')
-    fileInput.current.value = ''
+    setSelectedFile(null)
   }
 
   return (
@@ -115,12 +140,20 @@ const CapsuleForm = () => {
               accept="image/*,video/*,audio/*"
               ref={fileInput}
               style={{ display: 'none' }}
+              onChange={handleFileChange}
             />
           </label>
+          {selectedFile && <label>Selected file: {selectedFile.name}</label>}
+          {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
         </div>
 
         <div className="button-container">
-          <button type="submit" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Submit</button> <></>
+          <button type="submit" disabled={uploading}>
+            {uploading ? 'Uploading...' : 'Submit'}
+          </button>{' '}
+          <></>
+        </div>
+        <div className="button-container">
           <button type="button" onClick={handleReset}>
             Reset
           </button>

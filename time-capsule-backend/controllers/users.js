@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 const usersRouter = require("express").Router();
 const User = require("../models/user");
 require("dotenv").config();
+const {
+  tokenExtractor,
+  userExtractor,
+  authorizeAdmin,
+} = require("../utils/middleware");
 
 usersRouter.post("/", async (request, response) => {
   const { username, email, name, surname, password, role } = request.body;
@@ -66,14 +71,20 @@ usersRouter.post("/", async (request, response) => {
       .json({ error: "User creation failed. Please try again." });
   }
 });
-usersRouter.get("/", async (request, response) => {
-  const users = await User.find({}).populate("capsules", {
-    title: 1,
-    date: 1,
-    content: 1,
-    date: 1,
-  });
-  response.json(users);
-});
+usersRouter.get(
+  "/",
+  tokenExtractor,
+  userExtractor,
+  authorizeAdmin,
+  async (request, response) => {
+    const users = await User.find({}).populate("capsules", {
+      title: 1,
+      date: 1,
+      content: 1,
+      date: 1,
+    });
+    response.json(users);
+  },
+);
 
 module.exports = usersRouter;

@@ -76,19 +76,20 @@ const Capsules = () => {
 
   return (
     <div>
-      <h2>Your Capsules:</h2>
-      <ul>
+      <h2 className="section-title">Your Capsules:</h2>
+      <ul className="features">
         {capsules.map((capsule) => (
-          <li key={capsule.id} className='capsule'>
+          <li key={capsule.id} className="feature-card">
             <h3>{capsule.title}</h3>
-            <p>{capsule.content}</p>
+            <p className="content">{capsule.content}</p>
             <p>Opens on: {capsule.date}</p>
             <p>Time remaining: {getTimeRemaining(capsule.date)}</p>
             <p>Capsule was sent on: {capsule.dateSent}</p>
-            {/* <img
-            src={`/api/capsules/file/${capsule.id}`}
-            alt='Capsule Image'
-            ></img> */}
+            <img
+              src={`${capsule.fileInput}`}
+              alt="Capsule Image"
+              className="capsule-image"
+            />
           </li>
         ))}
       </ul>
