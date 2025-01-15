@@ -28,4 +28,8 @@
 | 01-07/01/25 | 3 | Added admin priviliges (Only admins can view api routes)|
 || 5 | Fixed image upload with cloudinary and multer |
 || 1 | Added testing and fixed navbar |
-| total | 73 | | 
+| 08-15/01/25| 1 | Added 404 page for invalid route |
+| | 3 | Added Capsule Preview |
+| | 1 | Added Admin View |
+| | 2 | Small fixes on the layout|
+| total | 80 | | 

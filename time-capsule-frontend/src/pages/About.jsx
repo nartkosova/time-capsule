@@ -1,7 +1,17 @@
+import { useEffect } from 'react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
 const About = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    })
+  }, [])
   return (
     <div>
-      <section>
+      <section data-aos="fade-right">
         <p>
           The <strong>Time Capsule</strong> project is developed as part of the{' '}
           <a href="https://fullstackopen.com/en/">Full Stack Open</a> course,
@@ -27,7 +37,7 @@ const About = () => {
           </li>
         </blockquote>
       </section>
-      <section>
+      <section data-aos="fade-left">
         <p>
           The Time Capsule project showcases the integration of frontend and
           backend technologies to build a robust and interactive application.
@@ -36,7 +46,7 @@ const About = () => {
           accessed on the date selected to be opened.
         </p>
       </section>
-      <section>
+      <section data-aos="fade-right">
         <h2>Project Requirements</h2>
 
         <p>

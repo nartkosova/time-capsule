@@ -24,11 +24,7 @@ export const CapsuleProvider = ({ children }) => {
       }
       navigate('/')
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setNotification('You need to be logged in to create a capsule!')
-      } else {
-        setNotification('Failed to create capsule. Please try again.')
-      }
+      setNotification(error.response.data.error)
       setIsError(true)
       setTimeout(() => {
         setNotification(null)

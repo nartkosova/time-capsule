@@ -16,7 +16,10 @@ const Footer = () => {
           >
             About
           </Link>
-          <a className="footer-link">Contact</a>
+          <Link to="/contact" className="footer-link">
+            Contact
+          </Link>
+          <i></i>
         </div>
       </div>
       <div className="footer-bottom">

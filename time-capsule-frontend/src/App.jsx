@@ -18,7 +18,9 @@ import { CapsuleProvider } from './context/capsuleContext'
 import Register from './pages/Register'
 import userService from './services/userService'
 import Notification from './components/Notification'
-import capsulePreview from './pages/capsulePreview'
+import CapsulePreview from './pages/capsulePreview'
+import NotFound from './pages/NotFound'
+import AdminPage from './pages/adminPage'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -57,7 +59,7 @@ const App = () => {
       setPassword('')
       navigate('/')
     } catch (error) {
-      setNotification('Failed to login')
+      setNotification(error.response.data.error)
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
@@ -87,9 +89,10 @@ const App = () => {
       setSurname('')
       setEmail('')
       navigate('/')
-    } catch (exception) {
-      setNotification('Failed to create user', exception)
-      console.log(exception)
+    } catch (error) {
+      const errorMessage = error.response.data.error || 'Failed to create user'
+      setNotification(errorMessage)
+      console.log(error)
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
@@ -115,9 +118,10 @@ const App = () => {
           path="/register"
           element={<Register handleUser={handleUser} />}
         />
-        <Route path="/capsule-preview" element={capsulePreview} />
+        <Route path="/capsule-preview/:id" element={<CapsulePreview />} />
+        <Route path="/admin-page" element={<AdminPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      <div className="empty"></div>
       <Footer />
     </CapsuleProvider>
   )

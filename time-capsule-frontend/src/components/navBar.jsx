@@ -10,7 +10,7 @@ const Navigation = ({ user, handleLogout }) => {
   const onLogout = (event) => {
     event.preventDefault()
     handleLogout()
-    setMenuActive(false) 
+    setMenuActive(false)
   }
 
   const toggleMenu = () => {
@@ -18,7 +18,7 @@ const Navigation = ({ user, handleLogout }) => {
   }
 
   const closeMenu = () => {
-    setMenuActive(false) 
+    setMenuActive(false)
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Navigation = ({ user, handleLogout }) => {
 
       if (currentScroll > lastScrollTop && currentScroll > 50) {
         setIsVisible(false)
-        setMenuActive(false) 
+        setMenuActive(false)
       } else if (currentScroll < lastScrollTop || currentScroll < 200) {
         setIsVisible(true)
       }
@@ -65,31 +65,30 @@ const Navigation = ({ user, handleLogout }) => {
               ${menuActive ? 'active' : ''} 
               ${isVisible ? 'visible' : 'hidden'}`}
       >
-        <Link
-          className="mobile-nav-links"
-          to="/create"
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-            closeMenu()
-          }}
-        >
-          Create
-        </Link>
-
         {user ? (
           <>
-            <span className="mobile-nav-links">
-              Logged in as {user.username}
-            </span>
-            <button
-              className="logout"
-              onClick={(event) => {
-                onLogout(event)
+            <Link
+              className="mobile-nav-links"
+              to="/create"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
                 closeMenu()
               }}
             >
-              Logout
-            </button>
+              Create
+            </Link>
+            <span className="mobile-nav-links">
+              Logged in as {user.username}
+              <button
+                className="logout"
+                onClick={(event) => {
+                  onLogout(event)
+                  closeMenu()
+                }}
+              >
+                Logout
+              </button>
+            </span>
           </>
         ) : (
           <>

@@ -37,12 +37,29 @@ const getCapsule = async () => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = await axios.get('/api/capsules', config)
+  const response = await axios.get(`${baseUrl}`, config)
   return response.data
 }
 
 const getCapsulesByUser = async (userId) => {
-  const response = await axios.get(`${baseUrl}/user/${userId}`)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.get(`${baseUrl}/user/${userId}`, config)
+  return response.data
+}
+
+const getCapsuleByID = async (id) => {
+  const storedUser = JSON.parse(localStorage.getItem('loggedCapsuleappUser'))
+  const token = storedUser?.token
+
+  if (!token) {
+    throw new Error('User is not authenticated')
+  }
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.get(`${baseUrl}/${id}`, config)
   return response.data
 }
 
@@ -53,4 +70,5 @@ export default {
   getCapsule,
   setToken,
   getCapsulesByUser,
+  getCapsuleByID,
 }

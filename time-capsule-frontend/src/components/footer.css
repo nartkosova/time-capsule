@@ -3,15 +3,15 @@ footer {
   background-color: #f2f4fb9d;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
+  min-height: 230px;
+  overflow: hidden;
   padding-bottom: 1rem;
 }
 .footer-title {
-  padding-left: 1rem;
-  padding-right: 1rem;
   font-size: 2rem;
   color: #d22780;
   margin-bottom: 0.5rem;
@@ -24,7 +24,4 @@ footer {
 
 .footer-link {
   padding: 0.5rem;
-}
-.footer-bottom {
-  width: 100%;
 }

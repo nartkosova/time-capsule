@@ -6,21 +6,21 @@ const Notification = ({ message, isError }) => {
   }
 
   const notificationStyle = {
-    padding: '10px 15px',
+    padding: '15px',
     marginBottom: '1rem',
-    marginTop: '2rem',
-    borderRadius: '6px',
+    marginTop: '1rem',
     backgroundColor: isError ? '#ffcccc' : '#ccffcc',
     color: isError ? '#272727' : '#272727',
-    border: `1px solid ${isError ? '#ff0000' : '#00cc00'}`,
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    border: `2px solid ${isError ? '#ff0000' : '#00cc00'}`,
     transition: 'all 0.3s ease-in-out',
     maxWidth: '400px',
     width: '100%',
     textAlign: 'center',
     marginLeft: 'auto',
     marginRight: 'auto',
+    top: '7rem',
     position: 'sticky',
+    zIndex: '100',
   }
 
   return (

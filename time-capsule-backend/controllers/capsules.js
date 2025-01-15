@@ -9,8 +9,6 @@ const {
   authorizeAdmin,
 } = require("../utils/middleware");
 
-// capsulesRouter.use(tokenExtractor, userExtractor)
-
 capsulesRouter.get(
   "/",
   tokenExtractor,
@@ -32,15 +30,15 @@ capsulesRouter.get(
   "/:id",
   tokenExtractor,
   userExtractor,
-  authorizeAdmin,
   async (request, response, next) => {
     try {
-      console.log("Request Body:", req.body);
-      console.log("Uploaded File:", req.file);
-      console.log("User:", req.user);
-      const capsule = await capsule.findById(request.params.id);
-      if (capsule) {
-        response.json(capsule);
+      const capsuleData = await capsule.findById(request.params.id).populate('user', {
+        username: 1,
+        name: 1,
+        id: 1,
+      });
+      if (capsuleData) {
+        response.json(capsuleData);
       } else {
         response.status(404).end();
       }
@@ -74,7 +72,7 @@ capsulesRouter.post(
         content: body.content,
         sendTo: body.sendTo,
         date: body.date,
-        fileInput: req.file.path,
+        fileInput: req.file ? req.file.path : null,
         user: user._id,
       });
 
@@ -89,7 +87,7 @@ capsulesRouter.post(
     }
   },
 );
-capsulesRouter.delete("/:id", async (request, response) => {
+capsulesRouter.delete("/:id", tokenExtractor, userExtractor, async (request, response) => {
   try {
     const user = request.user;
 
@@ -97,26 +95,26 @@ capsulesRouter.delete("/:id", async (request, response) => {
       return response.status(401).json({ error: "User not found!" });
     }
 
-    const capsule = await capsule.findById(request.params.id);
+    const capsuleData = await capsule.findById(request.params.id);
 
-    if (!capsule) {
+    if (!capsuleData) {
       return response.status(404).json({ error: "Capsule not found!" });
     }
 
-    if (capsule.user.toString() !== user.id.toString()) {
+    if (capsuleData.user.toString() !== user.id.toString()) {
       return response
         .status(403)
         .json({ error: "Unauthorized to delete this capsule!" });
     }
 
-    await capsule.findByIdAndDelete(request.params.id);
+    await capsuleData.findByIdAndDelete(request.params.id);
     response.status(204).end();
   } catch (error) {
     console.error(error);
     response.status(500).json({ error: "Failed to delete the capsule!" });
   }
 });
-capsulesRouter.put("/:id", upload.single("file"), async (req, res) => {
+capsulesRouter.put("/:id", tokenExtractor, userExtractor, upload.single("file"), async (req, res) => {
   try {
     const { title, content, date } = req.body;
     const fileInput = req.file ? req.file.path : null;
@@ -140,6 +138,7 @@ capsulesRouter.put("/:id", upload.single("file"), async (req, res) => {
 capsulesRouter.get(
   "/user/:userId",
   tokenExtractor,
+  userExtractor,
   async (request, response) => {
     try {
       const userId = request.params.userId;

@@ -46,27 +46,22 @@ const tokenExtractor = (request, response, next) => {
 };
 const userExtractor = async (request, response, next) => {
   const token = request.token;
-
-  if (!token) {
-    return response
-      .status(401)
-      .json({ error: "Token missing. Please log in." });
-  }
-  try {
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: "Token invalid!" });
+  console.log('Token:', token);
+  if (token) {
+    try {
+      const decodedToken = jwt.verify(token, process.env.SECRET);
+      console.log('Decoded Token:', decodedToken);
+      if (decodedToken.id) {
+        const user = await User.findById(decodedToken.id);
+        request.user = user;
+        console.log('User Found:', user); 
+      }
+    } catch (error) {
+      console.error("Token verification failed:", error);
+      return response.status(401).json({ error: "Unauthorized access!" });
     }
-    const user = await User.findById(decodedToken.id);
-    if (!user) {
-      return response.status(401).json({ error: "User not found!" });
-    }
-    request.user = user;
-    next();
-  } catch (error) {
-    console.error("Token verification failed:", error);
-    return response.status(401).json({ error: "Unauthorized access!" });
   }
+  next();
 };
 const authorizeAdmin = (req, res, next) => {
   if (req.user.role !== "admin") {

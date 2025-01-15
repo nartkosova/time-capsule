@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  bottom: 17%;
+  bottom: 6%;
 }
 .welcome {
   font-size: 7rem;
@@ -75,7 +75,7 @@
   margin: 0;
   text-align: center;
   font-size: 2.5rem;
-  color: #f8b500;
+  color: #d22780;
 }
 .logout {
   /* margin-bottom: 5.4px; */
@@ -85,25 +85,57 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  /* row-gap: -2rem; */
   gap: 2rem;
   padding: 2rem;
+  align-self: center;
 }
 
-.feature-card {
-  border: 1px solid #ff7a00;
-  padding: 1.5rem;
+.feature-card,
+.small-capsule {
+  border: 2px solid #ff7a00;
+  padding: 1rem;
   text-align: center;
-  max-width: 250px;
   transition: transform 0.3s ease;
 }
+.feature-card {
+  max-width: 250px;
+}
+.small-capsule {
+  margin-bottom: -3.75rem;
+  width: 300px;
+  max-height: 380px !important;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
 
-.feature-card:hover {
+.feature-card:hover,
+.small-capsule:hover {
   transform: translateY(-5px);
 }
-.capsule-image {
+.small-capsule:hover {
+  background-color: #fff4e5;
+}
+.capsule-image,
+.small-image {
   width: 100%;
-  height: 100%;
   object-fit: cover;
+  height: 100%;
+}
+.small-image {
+  width: 300px;
+  height: 250px;
+  margin-bottom: -0.5rem;
+}
+@media (max-width: 460px) {
+  .small-image {
+    width: 215px;
+    height: 175px;
+  }
+  .small-capsule {
+    width: 218px;
+  }
 }
 .icon {
   font-size: 2.5rem;
@@ -114,6 +146,9 @@
 .how-it-works {
   text-align: center;
   color: #121212;
+}
+.hero-text {
+  max-width: 95%;
 }
 
 @media (max-width: 900px) {

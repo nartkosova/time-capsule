@@ -1,14 +1,11 @@
-// import { useField } from "../hooks/index"
 import { useState } from 'react'
 import Register from './Register'
 import PropTypes from 'prop-types'
-// import { useNavigate } from "react-router-dom"
 
 const LoginForm = ({ handleLogin, handleUser }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [registerVisible, setRegisterVisible] = useState(false)
-  // const navigate = useNavigate()
 
   const onSubmit = (event) => {
     event.preventDefault()
@@ -70,7 +67,9 @@ const LoginForm = ({ handleLogin, handleUser }) => {
       <div style={showRegister}>
         <Register handleUser={handleUser} />
         <div className="button-container2">
-          <button onClick={() => setRegisterVisible(false)}>I have one!</button>
+          <button onClick={() => setRegisterVisible(false)}>
+            I have an account!
+          </button>
         </div>
       </div>
     </div>
