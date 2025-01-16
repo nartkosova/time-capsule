@@ -6,10 +6,11 @@ footer {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
   min-height: 230px;
   overflow: hidden;
   padding-bottom: 1rem;
+  padding: 12px;
 }
 .footer-title {
   font-size: 2rem;
@@ -24,4 +25,9 @@ footer {
 
 .footer-link {
   padding: 0.5rem;
+}
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+  }
 }

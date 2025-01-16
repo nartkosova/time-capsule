@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import Capsules from '../components/Capsules'
 import { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import './home.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-const Home = () => {
+const Home = ({ user }) => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -32,16 +33,31 @@ const Home = () => {
               data-aos-duration="2000"
               data-aos-delay="1600"
             >
-              <Link to="/create">
-                <button
-                  className="create"
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }
-                >
-                  Start Creating
-                </button>
-              </Link>
+              {!user ? (
+                <>
+                  <Link to="/register">
+                    <button
+                      className="create"
+                      onClick={() =>
+                        window.scrollTo({ top: 0, behavior: 'smooth' })
+                      }
+                    >
+                      Register to Start Creating
+                    </button>
+                  </Link>
+                </>
+              ) : (
+                <Link to="/create">
+                  <button
+                    className="create"
+                    onClick={() =>
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }
+                  >
+                    Start Creating
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -81,6 +97,9 @@ const Home = () => {
       </section>
     </>
   )
+}
+Home.propTypes = {
+  user: PropTypes.object,
 }
 
 export default Home

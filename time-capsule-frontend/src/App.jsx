@@ -24,7 +24,7 @@ import AdminPage from './pages/adminPage'
 
 const App = () => {
   const [user, setUser] = useState(null)
-  const [usernmae, setUsername] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [capsules, setCapsules] = useState('')
   const [name, setName] = useState('')
@@ -35,14 +35,15 @@ const App = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    capsuleService.getCapsule().then((capsules) => setCapsules(capsules))
-  }, [])
-  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedCapsuleappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
+      console.log('Token restored from localStorage:', user)
       setUser(user)
       capsuleService.setToken(user.token)
+    } else {
+      capsuleService.setToken(null)
+      setUser(null)
     }
   }, [])
 
@@ -59,6 +60,7 @@ const App = () => {
       setPassword('')
       navigate('/')
     } catch (error) {
+      capsuleService.setToken(null)
       setNotification(error.response.data.error)
       setIsError(true)
       setTimeout(() => {
@@ -68,6 +70,7 @@ const App = () => {
   }
   const handleLogout = () => {
     window.localStorage.removeItem('loggedCapsuleappUser')
+    window.localStorage.removeItem('authToken')
     capsuleService.setToken(null)
     setUser(null)
   }
@@ -105,7 +108,7 @@ const App = () => {
       <Navigation user={user} handleLogout={handleLogout} />
       <Notification message={notification} isError={isError} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/create" element={<CapsuleForm />} />
         <Route path="/about" element={<About />} />
         <Route

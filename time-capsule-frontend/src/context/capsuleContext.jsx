@@ -34,14 +34,25 @@ export const CapsuleProvider = ({ children }) => {
   }
 
   const deleteCapsule = async (id) => {
-    try {
-      await capsuleService.deleteCapsule(id)
-      setCapsules((prevCapsules) =>
-        prevCapsules.filter((capsule) => capsule.id !== id)
-      )
-    } catch (error) {
-      console.error('Error deleting capsule:', error)
-    }
+    if (window.confirm(`Are you sure you want to delete this capsule?`))
+      try {
+        await capsuleService.deleteCapsule(id)
+        setCapsules((prevCapsules) =>
+          prevCapsules.filter((capsule) => capsule.id !== id)
+        )
+        navigate('/')
+        setNotification('Capsule deleted successfully!')
+        setIsError(false)
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
+      } catch (error) {
+        setNotification(error.response.data.error)
+        setIsError(true)
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
+      }
   }
 
   return (

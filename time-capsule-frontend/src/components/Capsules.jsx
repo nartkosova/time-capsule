@@ -51,12 +51,10 @@ const Capsules = () => {
 
   const token = localStorage.getItem('loggedCapsuleappUser')
   let userId = null
-  let isAdmin = null
 
   if (token) {
     const decodedToken = JSON.parse(atob(token.split('.')[1]))
     userId = decodedToken.id
-    isAdmin = decodedToken.role === 'admin'
   }
 
   useEffect(() => {
@@ -67,27 +65,16 @@ const Capsules = () => {
         )
         const token = storedUser?.token
 
-        if (!token) {
-          console.error('Token missing!')
-          return
-        }
-
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
-
-        if (isAdmin) {
-          const allCapsules = await capsuleService.getCapsule(config)
-          setCapsules(allCapsules)
-        } else {
-          const userCapsules = await capsuleService.getCapsulesByUser(
-            userId,
-            config
-          )
-          setCapsules(userCapsules)
-        }
+        const userCapsules = await capsuleService.getCapsulesByUser(
+          userId,
+          config
+        )
+        setCapsules(userCapsules)
       } catch (error) {
         console.error(
           'Error fetching capsules:',
@@ -99,7 +86,7 @@ const Capsules = () => {
     if (userId) {
       fetchUserCapsules()
     }
-  }, [setCapsules, userId, isAdmin])
+  }, [setCapsules, userId])
 
   if (!capsules.length && userId) {
     return <p>No capsules found, create one now!</p>
@@ -110,6 +97,7 @@ const Capsules = () => {
   return (
     <div>
       <h2 className="section-title">Your Capsules:</h2>
+      <p>Click on a capsule to view more details.</p>
       <ul className="features">
         {capsules.map((capsule) => (
           // eslint-disable-next-line react/jsx-key
@@ -117,6 +105,7 @@ const Capsules = () => {
             to={`/capsule-preview/${capsule.id}`}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             key={capsule.id}
+            aria-label={`View details for ${capsule.title}`}
           >
             <li key={capsule.id} className="small-capsule">
               <h3 className="content">{capsule.title}</h3>

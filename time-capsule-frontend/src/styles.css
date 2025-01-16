@@ -146,6 +146,10 @@ textarea {
   box-sizing: border-box;
   transition: border-color 0.3s ease;
 }
+textarea {
+  overflow: hidden;
+  resize: none;
+}
 
 input:focus,
 textarea:focus {
@@ -198,17 +202,15 @@ button {
 .button-container,
 .button-container2 {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
   margin-top: 1rem;
 }
 .button-container2 {
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
-
 button {
   background: #f8b500;
   text-align: center;
@@ -217,7 +219,7 @@ button {
   border-radius: 10px;
   cursor: pointer;
   font-size: 1.2rem;
-  color: #f2f4fb;
+  color: #ffffff;
   font-weight: bold;
   transition:
     scale 0.3s ease,
@@ -334,9 +336,6 @@ nav a:hover {
 @media (max-width: 927px) {
   .hamburger {
     display: block;
-  }
-  body {
-    margin-top: 1.3rem;
   }
   section,
   form {

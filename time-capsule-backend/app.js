@@ -28,9 +28,6 @@ app.use(morgan("dev"));
 
 app.use(
   "/api/capsules",
-  // middleware.tokenExtractor,
-  // middleware.userExtractor,
-  // middleware.authorizeAdmin,
   capsulesRouter,
 );
 app.use("/api/users", usersRouter);

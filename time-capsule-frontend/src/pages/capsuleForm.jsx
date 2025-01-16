@@ -96,7 +96,11 @@ const CapsuleForm = () => {
               rows="4"
               id="content"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => {
+                setContent(e.target.value)
+                e.target.style.height = 'auto'
+                e.target.style.height = `${e.target.scrollHeight}px`
+              }}
               placeholder="Write your time capsule"
             />
           </label>
@@ -146,17 +150,26 @@ const CapsuleForm = () => {
           {selectedFile && <label>Selected file: {selectedFile.name}</label>}
           {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
         </div>
-
-        <div className="button-container">
-          <button type="submit" disabled={uploading}>
-            {uploading ? 'Uploading...' : 'Submit'}
-          </button>{' '}
-          <></>
-        </div>
-        <div className="button-container">
-          <button type="button" onClick={handleReset}>
-            Reset
-          </button>
+        <div className="button">
+          <div className="button-container">
+            <button
+              style={{ marginRight: '0.5rem' }}
+              type="submit"
+              disabled={uploading}
+            >
+              {uploading ? 'Uploading...' : 'Submit'}
+            </button>{' '}
+            <></>
+            {/* <div className="button-container"> */}
+            <button
+              style={{ marginLeft: '0.5rem' }}
+              type="button"
+              onClick={handleReset}
+            >
+              Reset
+            </button>
+          </div>
+          {/* </div> */}
         </div>
       </form>
     </div>

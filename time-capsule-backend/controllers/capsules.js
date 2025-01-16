@@ -1,6 +1,6 @@
 const capsulesRouter = require("express").Router();
 const capsule = require("../models/capsule");
-const User = require("../models/user");
+const user = require("../models/user");
 const jwt = require("jsonwebtoken");
 const { upload } = require("../utils/cloudinary");
 const {
@@ -16,6 +16,8 @@ capsulesRouter.get(
   authorizeAdmin,
   async (request, response) => {
     try {
+      const user = request.token;
+      console.log("Userrrrrrrrrrrrrrrrrrrrrrrrr:", user);
       const capsules = await capsule
         .find({})
         .populate("user", { username: 1, name: 1, id: 1 });
@@ -25,18 +27,29 @@ capsulesRouter.get(
     }
   },
 );
-
 capsulesRouter.get(
   "/:id",
   tokenExtractor,
   userExtractor,
   async (request, response, next) => {
+    const User = request.user;
+    console.log("Userrrrrrrrrrrrrrrrrrrr:", User);
     try {
       const capsuleData = await capsule.findById(request.params.id).populate('user', {
         username: 1,
         name: 1,
         id: 1,
       });
+      console.log("Capsule DATA:", capsuleData);
+      console.log("Capsule DATA USER:", capsuleData.user.id.toString());
+      if (capsuleData.user.id.toString() !== User.id.toString() && User.role !== "admin") {
+        return response
+          .status(403)
+          .json({ error: "Unauthorized to view this capsule!" });
+      }
+      if (User.role === "admin") {
+        response.json(capsuleData);
+      }
       if (capsuleData) {
         response.json(capsuleData);
       } else {
@@ -49,9 +62,9 @@ capsulesRouter.get(
 );
 capsulesRouter.post(
   "/",
+  upload.single("file"),
   tokenExtractor,
   userExtractor,
-  upload.single("file"),
   async (req, res) => {
     try {
       const body = req.body;
@@ -65,6 +78,10 @@ capsulesRouter.post(
         return res
           .status(400)
           .json({ error: "Title, Content, or Date missing!" });
+      }
+
+      if (!user.capsules) {
+        user.capsules = [];
       }
 
       const newCapsule = new capsule({
@@ -119,7 +136,7 @@ capsulesRouter.put("/:id", tokenExtractor, userExtractor, upload.single("file"),
     const { title, content, date } = req.body;
     const fileInput = req.file ? req.file.path : null;
 
-    const updatedCapsule = await Capsule.findByIdAndUpdate(
+    const updatedCapsule = await capsule.findByIdAndUpdate(
       req.params.id,
       { title, content, date, fileInput },
       { new: true, runValidators: true },
@@ -141,7 +158,19 @@ capsulesRouter.get(
   userExtractor,
   async (request, response) => {
     try {
-      const userId = request.params.userId;
+      const { userId } = request.params;
+      const user = request.user;
+      console.log("UserRRRRRRRRRRRRR:", user);
+      if (!user) {
+        return response.status(401).json({ error: "Unauthorized access!" });
+      }
+
+      if (user.id.toString() !== userId) {
+        return response
+          .status(403)
+          .json({ error: "Access denied! You can only view your own capsules." });
+      }
+
       const userCapsules = await capsule
         .find({ user: userId })
         .populate("user", { username: 1, name: 1, id: 1 });

@@ -6,7 +6,7 @@ const Notification = ({ message, isError }) => {
   }
 
   const notificationStyle = {
-    padding: '15px',
+    padding: '1rem',
     marginBottom: '1rem',
     marginTop: '1rem',
     backgroundColor: isError ? '#ffcccc' : '#ccffcc',

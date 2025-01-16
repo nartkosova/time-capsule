@@ -47,8 +47,8 @@ usersRouter.post("/", async (request, response) => {
 
     const userForToken = {
       username: savedUser.username,
-      email: savedUser.email,
       id: savedUser._id,
+      role: savedUser.role,
     };
     const token = jwt.sign(userForToken, process.env.SECRET, {
       expiresIn: "1h",
