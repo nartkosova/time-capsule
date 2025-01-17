@@ -2,6 +2,8 @@
 import capsuleService from '../services/capsuleService'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useCapsule } from '../context/capsuleContext'
+import { useNavigate } from 'react-router-dom'
 const CapsulePreview = () => {
   const { id } = useParams()
   const {
@@ -13,9 +15,13 @@ const CapsulePreview = () => {
     queryKey: ['capsule', id],
     queryFn: () => capsuleService.getCapsuleByID(id),
   })
-
+  const { deleteCapsule } = useCapsule()
+  // const [title, setTitle] = useState(capsule.title);
+  // const [content, setContent] = useState(capsule.content);
+  // const [date, setDate] = useState(capsule.date);
   const token = localStorage.getItem('loggedCapsuleappUser')
   let userId = null
+  const navigate = useNavigate()
 
   if (token) {
     const decodedToken = JSON.parse(atob(token.split('.')[1]))
@@ -93,6 +99,19 @@ const CapsulePreview = () => {
 
   return (
     <section>
+      {/* <h2 className="section-title">Lorem Ipsum is simply</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut aperiam incidunt natus expedita, nobis officia tenetur, veniam nesciunt pariatur odio similique aliquid eum quibusdam mollitia aspernatur itaque quod dolor deleniti?</p>
+      <blockquote>
+        <li>Opens on: 15/02/2037</li>
+        <li>Time remaining: 12 Years 1 Month 3 Days</li>
+        <li>Capsule was sent on: 12/02/2024</li>
+      </blockquote>
+        <img
+          src={'https://e58xmzy5vzj.exactdn.com/wp-content/uploads/2023/11/EV0B0151-1-2-1365x2048.jpg?strip=all&lossy=1&ssl=1'}
+          alt="Capsule Image"
+          className="capsule-image"
+        /> */}
+
       <h2 className="section-title">{capsule.title}</h2>
       <p>{capsule.content}</p>
       <blockquote>
@@ -107,6 +126,28 @@ const CapsulePreview = () => {
           className="capsule-image"
         />
       )}
+      <div className="button-container" style={{ marginTop: '1rem' }}>
+        <button
+          style={{ marginRight: '0.5rem' }}
+          type="submit"
+          onClick={() => {
+            navigate(`/edit/${capsule.id}`)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+        >
+          Edit
+        </button>
+        <button
+          style={{ marginLeft: '0.5rem' }}
+          type="button"
+          onClick={() => {
+            deleteCapsule(capsule.id)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </section>
   )
 }

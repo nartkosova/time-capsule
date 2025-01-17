@@ -117,16 +117,17 @@
 .small-capsule:hover {
   background-color: #fff4e5;
 }
-.capsule-image,
-.small-image {
+.capsule-image {
+  display: block;
   width: 100%;
   object-fit: cover;
   height: 100%;
 }
 .small-image {
   width: 300px;
+  object-fit: cover;
   height: 250px;
-  margin-bottom: -0.5rem;
+  display: block;
 }
 @media (max-width: 460px) {
   .small-image {

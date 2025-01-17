@@ -67,9 +67,8 @@ h1 {
 
 p {
   font-size: 1.25rem;
-  font-weight: 100;
+  font-weight: 500;
 }
-main,
 section,
 form {
   flex: 1;
@@ -297,7 +296,6 @@ nav a:hover {
   color: #1f4e78;
   margin: 0;
   font-size: 2rem !important;
-  font-weight: bold;
   display: flex;
   align-items: center;
   transition: text-shadow 0.2s ease;

@@ -21,6 +21,7 @@ import Notification from './components/Notification'
 import CapsulePreview from './pages/capsulePreview'
 import NotFound from './pages/NotFound'
 import AdminPage from './pages/adminPage'
+import UpdateCapsuleForm from './pages/updateCapsule'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -102,7 +103,6 @@ const App = () => {
       }, 5000)
     }
   }
-
   return (
     <CapsuleProvider message={notification} isError={isError}>
       <Navigation user={user} handleLogout={handleLogout} />
@@ -124,6 +124,7 @@ const App = () => {
         <Route path="/capsule-preview/:id" element={<CapsulePreview />} />
         <Route path="/admin-page" element={<AdminPage />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/edit/:id" element={<UpdateCapsuleForm />} />
       </Routes>
       <Footer />
     </CapsuleProvider>

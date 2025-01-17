@@ -33,4 +33,5 @@
 | | 1 | Added Admin View |
 | | 2 | Small fixes on the layout|
 | 16/01/15 | 3 | Admin page added to view all capsules, fixed so only admins can view every capsule |
-| total | 83 | | 
+| 17/01/15 | 4 | Added edit feature to capsules, changed home layout, and small fixes |
+| total | 87 | | 

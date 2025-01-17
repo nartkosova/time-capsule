@@ -24,7 +24,7 @@ const CapsuleForm = () => {
       return
     }
 
-    const maxSize = 20 * 1024 * 1024
+    const maxSize = 10 * 1024 * 1024
     if (file.size > maxSize) {
       setUploadError('File size exceeds 20MB. Please upload a smaller file.')
       return
@@ -147,29 +147,26 @@ const CapsuleForm = () => {
               onChange={handleFileChange}
             />
           </label>
+          {!selectedFile && <label>Upload files up to 10Mb</label>}
           {selectedFile && <label>Selected file: {selectedFile.name}</label>}
           {uploadError && <p style={{ color: 'red' }}>{uploadError}</p>}
         </div>
-        <div className="button">
-          <div className="button-container">
-            <button
-              style={{ marginRight: '0.5rem' }}
-              type="submit"
-              disabled={uploading}
-            >
-              {uploading ? 'Uploading...' : 'Submit'}
-            </button>{' '}
-            <></>
-            {/* <div className="button-container"> */}
-            <button
-              style={{ marginLeft: '0.5rem' }}
-              type="button"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-          </div>
-          {/* </div> */}
+        <div className="button-container">
+          <button
+            style={{ marginRight: '0.5rem' }}
+            type="submit"
+            disabled={uploading}
+          >
+            {uploading ? 'Uploading...' : 'Submit'}
+          </button>{' '}
+          <></>
+          <button
+            style={{ marginLeft: '0.5rem' }}
+            type="button"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
         </div>
       </form>
     </div>

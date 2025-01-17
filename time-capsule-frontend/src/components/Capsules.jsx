@@ -48,7 +48,9 @@ import { Link } from 'react-router-dom'
 // ]
 const Capsules = () => {
   const { capsules, setCapsules } = useCapsule()
-
+  const Scroll = () => {
+    window.scrollTo({ top: 0 })
+  }
   const token = localStorage.getItem('loggedCapsuleappUser')
   let userId = null
 
@@ -91,7 +93,18 @@ const Capsules = () => {
   if (!capsules.length && userId) {
     return <p>No capsules found, create one now!</p>
   } else if (!token) {
-    return <p>Login or Register to create a capsule!</p>
+    return (
+      <p>
+        <Link to="/login" onClick={Scroll}>
+          Login
+        </Link>{' '}
+        or{' '}
+        <Link to="/register" onClick={Scroll}>
+          Register
+        </Link>{' '}
+        to create a capsule!
+      </p>
+    )
   }
 
   return (
@@ -103,7 +116,7 @@ const Capsules = () => {
           // eslint-disable-next-line react/jsx-key
           <Link
             to={`/capsule-preview/${capsule.id}`}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={Scroll}
             key={capsule.id}
             aria-label={`View details for ${capsule.title}`}
           >

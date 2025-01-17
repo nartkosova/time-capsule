@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-
+import './notification.css'
 const Notification = ({ message, isError }) => {
   if (message === null) {
     return null
@@ -16,16 +16,19 @@ const Notification = ({ message, isError }) => {
     maxWidth: '400px',
     width: '100%',
     textAlign: 'center',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    marginLeft: '2rem',
+    marginRight: '2rem',
     top: '7rem',
     position: 'sticky',
     zIndex: '100',
+    animation: 'slideIn 0.5s ease-in-out',
   }
 
   return (
-    <div style={notificationStyle}>
-      <p>{message}</p>
+    <div className="notification-container">
+      <div style={notificationStyle}>
+        <p>{message}</p>
+      </div>
     </div>
   )
 }

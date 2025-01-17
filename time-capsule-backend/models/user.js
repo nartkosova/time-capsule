@@ -32,6 +32,10 @@ const userSchema = mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  registeredOn: {
+    type: Date,
+    default: () => new Date(),
+  },
   capsules: [
     {
       type: mongoose.Schema.Types.ObjectId,

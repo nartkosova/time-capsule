@@ -22,6 +22,11 @@ export const CapsuleProvider = ({ children }) => {
       if (returnedCapsule) {
         setCapsules((prevCapsules) => [...prevCapsules, returnedCapsule])
       }
+      setNotification('Capsule added successfully!')
+      setIsError(false)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
       navigate('/')
     } catch (error) {
       setNotification(error.response.data.error)
@@ -40,12 +45,12 @@ export const CapsuleProvider = ({ children }) => {
         setCapsules((prevCapsules) =>
           prevCapsules.filter((capsule) => capsule.id !== id)
         )
-        navigate('/')
         setNotification('Capsule deleted successfully!')
         setIsError(false)
         setTimeout(() => {
           setNotification(null)
         }, 5000)
+        navigate('/')
       } catch (error) {
         setNotification(error.response.data.error)
         setIsError(true)
@@ -54,10 +59,38 @@ export const CapsuleProvider = ({ children }) => {
         }, 5000)
       }
   }
+  const updateCapsule = async (id, updatedData) => {
+    try {
+      const updatedCapsule = await capsuleService.updateCapsule(id, updatedData)
+      setCapsules((prevCapsules) =>
+        prevCapsules.map((capsule) =>
+          capsule.id === id ? updatedCapsule : capsule
+        )
+      )
+      setNotification('Capsule updated successfully!')
+      setIsError(false)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
+      return updatedCapsule
+    } catch (error) {
+      setNotification(error.response.data.error)
+      setIsError(true)
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
+    }
+  }
 
   return (
     <CapsuleContext.Provider
-      value={{ capsules, setCapsules, addCapsule, deleteCapsule }}
+      value={{
+        capsules,
+        setCapsules,
+        addCapsule,
+        deleteCapsule,
+        updateCapsule,
+      }}
     >
       <Notification message={notification} isError={isError} />
       {children}

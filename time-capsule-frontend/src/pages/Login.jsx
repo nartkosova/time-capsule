@@ -67,7 +67,12 @@ const LoginForm = ({ handleLogin, handleUser }) => {
       <div style={showRegister}>
         <Register handleUser={handleUser} />
         <div className="button-container2">
-          <button onClick={() => setRegisterVisible(false)}>
+          <button
+            onClick={() => {
+              setRegisterVisible(false)
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+          >
             I have an account!
           </button>
         </div>

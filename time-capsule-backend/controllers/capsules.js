@@ -8,6 +8,7 @@ const {
   userExtractor,
   authorizeAdmin,
 } = require("../utils/middleware");
+const mongoose = require("mongoose");
 
 capsulesRouter.get(
   "/",
@@ -17,7 +18,6 @@ capsulesRouter.get(
   async (request, response) => {
     try {
       const user = request.token;
-      console.log("Userrrrrrrrrrrrrrrrrrrrrrrrr:", user);
       const capsules = await capsule
         .find({})
         .populate("user", { username: 1, name: 1, id: 1 });
@@ -33,15 +33,12 @@ capsulesRouter.get(
   userExtractor,
   async (request, response, next) => {
     const User = request.user;
-    console.log("Userrrrrrrrrrrrrrrrrrrr:", User);
     try {
       const capsuleData = await capsule.findById(request.params.id).populate('user', {
         username: 1,
         name: 1,
         id: 1,
       });
-      console.log("Capsule DATA:", capsuleData);
-      console.log("Capsule DATA USER:", capsuleData.user.id.toString());
       if (capsuleData.user.id.toString() !== User.id.toString() && User.role !== "admin") {
         return response
           .status(403)
@@ -97,7 +94,7 @@ capsulesRouter.post(
       user.capsules = user.capsules.concat(savedcapsule._id);
       await user.save();
 
-      res.status(201).json(savedcapsule);
+      res.status(201).json({message: "Capsule created successfully!"});
     } catch (error) {
       console.error("Failed to save capsule", error);
       res.status(500).json({ error: "Failed to save the capsule!" });
@@ -124,18 +121,31 @@ capsulesRouter.delete("/:id", tokenExtractor, userExtractor, async (request, res
         .json({ error: "Unauthorized to delete this capsule!" });
     }
 
-    await capsuleData.findByIdAndDelete(request.params.id);
-    response.status(204).end();
+    await capsule.findByIdAndDelete(request.params.id);
+    return response
+    .status(204)
+    .json({ message: "Capsule deleted successfully!" });
   } catch (error) {
     console.error(error);
     response.status(500).json({ error: "Failed to delete the capsule!" });
   }
 });
 capsulesRouter.put("/:id", tokenExtractor, userExtractor, upload.single("file"), async (req, res) => {
-  try {
-    const { title, content, date } = req.body;
-    const fileInput = req.file ? req.file.path : null;
+  const { id } = req.params;
+  const { title, content, date } = req.body;
+  const fileInput = req.file ? req.file.path : null;
+  const user = request.user;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid capsule ID' });
+  }
+  if (user.id.toString() !== id) {
+    return response
+      .status(403)
+      .json({ error: "Access denied! You can only edit your own capsules." });
+  }
+
+  try {
     const updatedCapsule = await capsule.findByIdAndUpdate(
       req.params.id,
       { title, content, date, fileInput },
@@ -143,7 +153,7 @@ capsulesRouter.put("/:id", tokenExtractor, userExtractor, upload.single("file"),
     ).populate("user", { username: 1, name: 1, id: 1 });
 
     if (updatedCapsule) {
-      res.json(updatedCapsule);
+      return res.status(200).json({ message: "Capsule updated successfully!"});
     } else {
       res.status(404).json({ error: "Capsule not found!" });
     }
@@ -160,7 +170,6 @@ capsulesRouter.get(
     try {
       const { userId } = request.params;
       const user = request.user;
-      console.log("UserRRRRRRRRRRRRR:", user);
       if (!user) {
         return response.status(401).json({ error: "Unauthorized access!" });
       }

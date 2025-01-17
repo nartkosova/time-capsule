@@ -13,7 +13,14 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "capsules",
-    allowed_formats: ["jpg", "png", "jpeg", "gif", "mp4", "mp3"],
+    allowed_formats: [
+      "jpg", "png", "jpeg", "gif",
+      "mp4", "mp3", "avi", "mov",
+      "wav", "ogg", "flac",
+    ],
+    transformation: [
+      { quality: "auto", fetch_format: "auto", width: 800, crop: "limit" },
+    ],
   },
 });
 
