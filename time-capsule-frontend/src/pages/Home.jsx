@@ -99,6 +99,10 @@ const Home = ({ user }) => {
           the future.
         </p>
         <p>
+          After you have finished writing your capsule, on the date selected to be sent, 
+          the capsule will be delivered through email to the recipient.
+        </p>
+        <p>
           Rest assured, your messages are encrypted and secure. No one but you
           will have access to your capsules until the scheduled date. Your
           privacy and the integrity of your messages are our top priorities.

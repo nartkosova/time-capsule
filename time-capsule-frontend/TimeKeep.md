@@ -34,4 +34,6 @@
 | | 2 | Small fixes on the layout|
 | 16/01/15 | 3 | Admin page added to view all capsules, fixed so only admins can view every capsule |
 | 17/01/15 | 4 | Added edit feature to capsules, changed home layout, and small fixes |
-| total | 87 | | 
+| 21/01/15 | 3 | Worked on the feature for capsules to be sent out on the date selected |
+| 22/01/15 | 2 | Created email for time capsule, conntected via gmail API. Capsules will now be sent out on the date selected.|
+| total | 94 | | 

@@ -31,7 +31,7 @@ const capsuleSchema = new mongoose.Schema({
   },
   sendTo: {
     type: String,
-    // required: true,
+    required: true,
     match: [/.+@.+\..+/, "Please enter a valid email adress."],
   },
   fileInput: { type: String },

@@ -9,7 +9,7 @@ const capsulesRouter = require("./controllers/capsules");
 const loginRouter = require("./controllers/login");
 const middleware = require("./utils/middleware");
 const path = require("path");
-
+require('./utils/cron'); 
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -23,7 +23,6 @@ mongoose
 app.use(cors());
 app.use(express.static("dist"));
 app.use(express.json());
-
 app.use(morgan("dev"));
 
 app.use(

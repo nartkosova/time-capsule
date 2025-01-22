@@ -91,7 +91,11 @@ const Capsules = () => {
   }, [setCapsules, userId])
 
   if (!capsules.length && userId) {
-    return <p>No capsules found, create one now!</p>
+    return <p>No capsules found,{' '} 
+            <Link to="/create" onClick={Scroll}>
+          Create
+        </Link>{' '}
+         one now!</p>
   } else if (!token) {
     return (
       <p>

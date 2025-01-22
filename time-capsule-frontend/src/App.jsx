@@ -96,7 +96,6 @@ const App = () => {
     } catch (error) {
       const errorMessage = error.response.data.error || 'Failed to create user'
       setNotification(errorMessage)
-      console.log(error)
       setIsError(true)
       setTimeout(() => {
         setNotification(null)
@@ -121,7 +120,7 @@ const App = () => {
           path="/register"
           element={<Register handleUser={handleUser} />}
         />
-        <Route path="/capsule-preview/:id" element={<CapsulePreview />} />
+        <Route path="/capsule-preview/:id" element={<CapsulePreview user={user}/>} />
         <Route path="/admin-page" element={<AdminPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/edit/:id" element={<UpdateCapsuleForm />} />

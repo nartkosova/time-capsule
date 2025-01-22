@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
+import PropTypes from 'prop-types'
 import capsuleService from '../services/capsuleService'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useCapsule } from '../context/capsuleContext'
 import { useNavigate } from 'react-router-dom'
-const CapsulePreview = () => {
+const CapsulePreview = ( {user} ) => {
   const { id } = useParams()
   const {
     data: capsule,
@@ -100,6 +101,7 @@ const CapsulePreview = () => {
   return (
     <section>
       {/* <h2 className="section-title">Lorem Ipsum is simply</h2>
+            <p>Capsule was created by: KAka</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut aperiam incidunt natus expedita, nobis officia tenetur, veniam nesciunt pariatur odio similique aliquid eum quibusdam mollitia aspernatur itaque quod dolor deleniti?</p>
       <blockquote>
         <li>Opens on: 15/02/2037</li>
@@ -113,11 +115,15 @@ const CapsulePreview = () => {
         /> */}
 
       <h2 className="section-title">{capsule.title}</h2>
-      <p>{capsule.content}</p>
+        {user?.role === 'admin' && (
+          <p>Capsule was created by: {capsule.user.username}</p>
+        )}
+        <p className="content">{capsule.content}</p>
       <blockquote>
         <li>Opens on: {capsule.date}</li>
         <li>Time remaining: {getTimeRemaining(capsule.date)}</li>
         <li>Capsule was sent on: {capsule.dateSent}</li>
+        <li>Capsule will be sent to: {capsule.sendTo}</li>
       </blockquote>
       {!capsule.fileInput ? null : (
         <img
@@ -151,5 +157,7 @@ const CapsulePreview = () => {
     </section>
   )
 }
-
+CapsulePreview.propTypes = {
+  user: PropTypes.object,
+}
 export default CapsulePreview
