@@ -8,10 +8,12 @@ body {
   color: #f2f4fb;
   margin: 0;
   line-height: 1.6;
-  padding-top: 77px;
-  min-height: 100vh;
+  /* padding-top: 77px; */
+  min-height: 100vh !important;
 }
-
+.grow {
+  min-height: 45vh;
+}
 body {
   background: linear-gradient(
     229deg,
@@ -253,7 +255,7 @@ blockquote {
   background-color: #f2f4fb9d;
   padding: 12px;
   display: flex;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -331,7 +333,7 @@ nav a:hover {
   transition: color 0.3s ease;
   overflow-x: hidden;
 }
-@media (max-width: 927px) {
+@media (max-width: 1086px) {
   .hamburger {
     display: block;
   }
@@ -347,7 +349,7 @@ nav a:hover {
     flex-direction: column;
     align-items: flex-start;
     position: absolute;
-    top: 100%;
+    top: 103%;
     left: 0;
     background-color: #f2f4fbf5;
     z-index: 999;
@@ -361,14 +363,13 @@ nav a:hover {
     width: 100%;
     font-size: 1rem;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 16px;
     transition: color 0.3s ease;
     overflow-x: hidden;
   }
 
   .mobile-nav-links:hover {
     background-color: #f2f4fb;
-    padding: 10px;
     border-bottom: none;
   }
 

@@ -36,4 +36,5 @@
 | 17/01/15 | 4 | Added edit feature to capsules, changed home layout, and small fixes |
 | 21/01/15 | 3 | Worked on the feature for capsules to be sent out on the date selected |
 | 22/01/15 | 2 | Created email for time capsule, conntected via gmail API. Capsules will now be sent out on the date selected.|
-| total | 94 | | 
+| 24/01/15 | 2 | Created contact form with web3forms, small fixes to the user experience.|
+| total | 96 | | 

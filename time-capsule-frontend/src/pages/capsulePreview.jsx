@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useCapsule } from '../context/capsuleContext'
 import { useNavigate } from 'react-router-dom'
-const CapsulePreview = ( {user} ) => {
+const CapsulePreview = ({ user }) => {
   const { id } = useParams()
   const {
     data: capsule,
@@ -115,10 +115,10 @@ const CapsulePreview = ( {user} ) => {
         /> */}
 
       <h2 className="section-title">{capsule.title}</h2>
-        {user?.role === 'admin' && (
-          <p>Capsule was created by: {capsule.user.username}</p>
-        )}
-        <p className="content">{capsule.content}</p>
+      {user?.role === 'admin' && (
+        <p>Capsule was created by: {capsule.user.username}</p>
+      )}
+      <p className="content">{capsule.content}</p>
       <blockquote>
         <li>Opens on: {capsule.date}</li>
         <li>Time remaining: {getTimeRemaining(capsule.date)}</li>

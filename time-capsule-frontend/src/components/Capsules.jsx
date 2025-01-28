@@ -91,57 +91,67 @@ const Capsules = () => {
   }, [setCapsules, userId])
 
   if (!capsules.length && userId) {
-    return <p>No capsules found,{' '} 
-            <Link to="/create" onClick={Scroll}>
-          Create
-        </Link>{' '}
-         one now!</p>
+    return (
+      <section className="how-it-works">
+        <p>
+          No capsules found,{' '}
+          <Link to="/create" onClick={Scroll}>
+            Create
+          </Link>{' '}
+          one now!
+        </p>
+      </section>
+    )
   } else if (!token) {
     return (
-      <p>
-        <Link to="/login" onClick={Scroll}>
-          Login
-        </Link>{' '}
-        or{' '}
-        <Link to="/register" onClick={Scroll}>
-          Register
-        </Link>{' '}
-        to create a capsule!
-      </p>
+      <section className="how-it-works">
+        <p>
+          <Link to="/login" onClick={Scroll}>
+            Login
+          </Link>{' '}
+          or{' '}
+          <Link to="/register" onClick={Scroll}>
+            Register
+          </Link>{' '}
+          to create a capsule!
+        </p>
+      </section>
     )
   }
 
   return (
-    <div>
-      <h2 className="section-title">Your Capsules:</h2>
-      <p>Click on a capsule to view more details.</p>
-      <ul className="features">
-        {capsules.map((capsule) => (
-          // eslint-disable-next-line react/jsx-key
-          <Link
-            to={`/capsule-preview/${capsule.id}`}
-            onClick={Scroll}
-            key={capsule.id}
-            aria-label={`View details for ${capsule.title}`}
-          >
-            <li key={capsule.id} className="small-capsule">
-              <h3 className="content">{capsule.title}</h3>
-              <p className="content">{capsule.content}</p>
-              <p>Opens on: {capsule.date}</p>
-              <div>
-                {!capsule.fileInput ? null : (
-                  <img
-                    src={`${capsule.fileInput}`}
-                    alt="Capsule Image"
-                    className="small-image"
-                  />
-                )}
-              </div>
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </div>
+    <section className="how-it-works">
+      <div>
+        <h2 className="section-title">Your Capsules:</h2>
+        <p>Click on a capsule to view more details.</p>
+        <ul className="features">
+          {capsules.map((capsule) => (
+            // eslint-disable-next-line react/jsx-key
+            <Link
+              to={`/capsule-preview/${capsule.id}`}
+              onClick={Scroll}
+              key={capsule.id}
+              aria-label={`View details for ${capsule.title}`}
+            >
+              <li key={capsule.id} className="small-capsule">
+                <h3 className="content">{capsule.title}</h3>
+                <p className="content">{capsule.content}</p>
+                <p>Opens on: {capsule.date}</p>
+                <div>
+                  {!capsule.fileInput ? null : (
+                    <img
+                      src={`${capsule.fileInput}`}
+                      alt="Capsule Image"
+                      className="small-image"
+                    />
+                  )}
+                </div>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+    </section>
   )
 }
 

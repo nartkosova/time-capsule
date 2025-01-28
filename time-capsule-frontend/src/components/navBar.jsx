@@ -56,9 +56,15 @@ const Navigation = ({ user, handleLogout }) => {
           Time Capsule
         </Link>
       </h3>
-      <div className="hamburger" onClick={toggleMenu}>
-        &#9776;
-      </div>
+      {!menuActive ? (
+        <div className="hamburger" onClick={toggleMenu}>
+          &#9776;
+        </div>
+      ) : (
+        <div className="hamburger" onClick={closeMenu}>
+          &#9587;
+        </div>
+      )}
 
       <div
         className={`nav-links 
@@ -89,6 +95,16 @@ const Navigation = ({ user, handleLogout }) => {
                 Logout
               </button>
             </span>
+            <Link
+              className="mobile-nav-links"
+              to="/capsules"
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                closeMenu()
+              }}
+            >
+              Capsules
+            </Link>
           </>
         ) : (
           <>
@@ -124,6 +140,16 @@ const Navigation = ({ user, handleLogout }) => {
           }}
         >
           About
+        </Link>
+        <Link
+          className="mobile-nav-links"
+          to="/contact"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            closeMenu()
+          }}
+        >
+          Contact
         </Link>
       </div>
     </nav>
