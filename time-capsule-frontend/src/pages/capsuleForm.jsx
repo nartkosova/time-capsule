@@ -31,11 +31,6 @@ const CapsuleForm = () => {
     }
     setUploadError(null)
     setSelectedFile(file)
-
-    console.log('Selected File:', file)
-    console.log('File Name:', file.name)
-    console.log('File Type:', file.type)
-    console.log('File Size:', (file.size / 1024 / 1024).toFixed(2) + ' MB')
   }
 
   const handleSubmit = async (e) => {
@@ -49,11 +44,8 @@ const CapsuleForm = () => {
       formData.append('sendTo', sendTo)
       formData.append('date', date)
 
-      console.log('FormData:', formData)
 
       await addCapsule(formData)
-      console.log(formData)
-      console.log('Capsule submitted successfully!')
 
       handleReset()
 

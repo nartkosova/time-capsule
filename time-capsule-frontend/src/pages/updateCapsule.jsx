@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom'
 const UpdateCapsuleForm = () => {
   const { capsules, updateCapsule } = useCapsule()
   const { id } = useParams()
-  const capsule = capsules.find((c) => c.id === id)
+  const capsule = Array.isArray(capsules) ? capsules.find((c) => String(c.id) === id) : null;
   const navigate = useNavigate()
   const [updatedTitle, setUpdatedTitle] = useState('')
   const [updatedContent, setUpdatedContent] = useState('')
   const [updatedDate, setUpdatedDate] = useState('')
-
+  
   useEffect(() => {
     if (capsule) {
       setUpdatedTitle(capsule.title)
@@ -27,7 +27,11 @@ const UpdateCapsuleForm = () => {
       content: updatedContent,
       date: updatedDate,
     }
-
+    if (!updatedTitle || !updatedContent || !updatedDate) {
+      alert("All fields are required!");
+      return;
+    }
+    
     try {
       await updateCapsule(id, updatedData)
       navigate(`/capsule-preview/${capsule.id}`)
@@ -37,6 +41,7 @@ const UpdateCapsuleForm = () => {
   }
 
   return (
+    <div>
     <form onSubmit={handleUpdate}>
       <label>
         Title:
@@ -81,6 +86,7 @@ const UpdateCapsuleForm = () => {
         </button>
       </div>
     </form>
+    </div>
   )
 }
 

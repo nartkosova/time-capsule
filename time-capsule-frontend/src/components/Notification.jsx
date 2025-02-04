@@ -18,8 +18,8 @@ const Notification = ({ message, isError }) => {
     textAlign: 'center',
     marginLeft: '2rem',
     marginRight: '2rem',
-    top: '7rem',
-    position: 'sticky',
+    top: '5rem',
+    position: 'fixed',
     zIndex: '100',
     animation: 'slideIn 0.5s ease-in-out',
   }

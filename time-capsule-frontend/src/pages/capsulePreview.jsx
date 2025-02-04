@@ -17,9 +17,6 @@ const CapsulePreview = ({ user }) => {
     queryFn: () => capsuleService.getCapsuleByID(id),
   })
   const { deleteCapsule } = useCapsule()
-  // const [title, setTitle] = useState(capsule.title);
-  // const [content, setContent] = useState(capsule.content);
-  // const [date, setDate] = useState(capsule.date);
   const token = localStorage.getItem('loggedCapsuleappUser')
   let userId = null
   const navigate = useNavigate()
@@ -115,10 +112,8 @@ const CapsulePreview = ({ user }) => {
         /> */}
 
       <h2 className="section-title">{capsule.title}</h2>
-      {user?.role === 'admin' && (
-        <p>Capsule was created by: {capsule.user.username}</p>
-      )}
-      <p className="content">{capsule.content}</p>
+      <p>Capsule was created by: {capsule.user.username}</p>
+      <p>{capsule.content}</p>
       <blockquote>
         <li>Opens on: {capsule.date}</li>
         <li>Time remaining: {getTimeRemaining(capsule.date)}</li>

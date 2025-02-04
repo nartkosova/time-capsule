@@ -41,7 +41,6 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedCapsuleappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      console.log('Token restored from localStorage:', user)
       setUser(user)
       capsuleService.setToken(user.token)
     } else {

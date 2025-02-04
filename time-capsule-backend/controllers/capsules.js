@@ -28,35 +28,48 @@ capsulesRouter.get(
     }
   },
 );
+capsulesRouter.get('/my-capsules', tokenExtractor, userExtractor, async (req, res) => {
+  try {
+    const userEmail = req.user.email; 
+
+    const capsules = await capsule.find({ sendTo: userEmail });
+
+    res.status(200).json(capsules);
+  } catch (error) {
+    console.error('Error fetching capsules:', error);
+    res.status(500).json({ error: 'Failed to fetch capsules' });
+  }
+});
 capsulesRouter.get(
   "/:id",
   tokenExtractor,
   userExtractor,
   async (request, response, next) => {
-    const User = request.user;
     try {
-      const capsuleData = await capsule.findById(request.params.id).populate('user', {
+      const User = request.user;
+      const capsuleData = await capsule.findById(request.params.id).populate("user", {
         username: 1,
         name: 1,
         id: 1,
       });
-      if (capsuleData.user.id.toString() !== User.id.toString() && User.role !== "admin") {
-        return response
-          .status(403)
-          .json({ error: "Unauthorized to view this capsule!" });
+
+      if (!capsuleData) {
+        return response.status(404).json({ error: "Capsule not found!" });
       }
-      if (User.role === "admin") {
-        response.json(capsuleData);
+
+      const isOwner = capsuleData.user && capsuleData.user.id.toString() === User.id.toString();
+      const isAdmin = User.role === "admin";
+      const isRecipient = capsuleData.sendTo === User.email
+
+      if (!isOwner && !isAdmin && !isRecipient) {
+        return response.status(403).json({ error: "Unauthorized to view this capsule!" });
       }
-      if (capsuleData) {
-        response.json(capsuleData);
-      } else {
-        response.status(404).end();
-      }
+
+      response.json(capsuleData);
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 capsulesRouter.post(
   "/",
@@ -96,7 +109,7 @@ capsulesRouter.post(
         title: body.title,
         content: body.content,
         sendTo: body.sendTo,
-        date: body.date,
+        date: new Date(body.date),
         fileInput: req.file ? req.file.path : null,
         user: user._id,
       });
@@ -105,17 +118,8 @@ capsulesRouter.post(
       user.capsules = user.capsules.concat(savedcapsule._id);
       await user.save();
 
-      try {
-        await sendCapsule(savedcapsule);
-        console.log(`Email sent to ${savedcapsule.sendTo}`);
-      } catch (error) {
-        console.error("Failed to send email:", error);
-        return res.status(500).json({
-          error: "Capsule created but email failed to send!",
-        });
-      }
 
-      res.status(201).json({message: "Capsule created successfully!"});
+      res.status(201).json({ message: "Capsule created successfully!" });
     } catch (error) {
       console.error("Failed to save capsule", error);
       res.status(500).json({ error: "Failed to save the capsule!" });
@@ -154,35 +158,40 @@ capsulesRouter.delete("/:id", tokenExtractor, userExtractor, async (request, res
 capsulesRouter.put("/:id", tokenExtractor, userExtractor, upload.single("file"), async (req, res) => {
   const { id } = req.params;
   const { title, content, date } = req.body;
-  const fileInput = req.file ? req.file.path : null;
-  // const user = request.user;
+  const fileInput = req.file ? req.file.path : null;  
+  const user = req.user;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'Invalid capsule ID' });
   }
-  // if (user.id.toString() !== id) {
-  //   return response
-  //     .status(403)
-  //     .json({ error: "Access denied! You can only edit your own capsules." });
-  // }
 
   try {
-    const updatedCapsule = await capsule.findByIdAndUpdate(
-      req.params.id,
-      { title, content, date, fileInput },
-      { new: true, runValidators: true },
-    ).populate("user", { username: 1, name: 1, id: 1 });
+      const existingCapsule = await capsule.findById(id);
+      if (!existingCapsule) {
+        return res.status(404).json({ error: "Capsule not found!" });
+      }
 
-    if (updatedCapsule) {
-      return res.status(200).json({ message: "Capsule updated successfully!"});
-    } else {
-      res.status(404).json({ error: "Capsule not found!" });
+      if (existingCapsule.user.toString() !== user.id.toString()) {
+        return res.status(403).json({
+          error: "Access denied! You can only edit your own capsules.",
+        });
+      }
+
+      const updatedCapsule = await capsule
+        .findByIdAndUpdate(
+          id,
+          { title, content, date },
+          { new: true, runValidators: true }
+        )
+        .populate("user", { username: 1, name: 1, id: 1 });
+
+      return res.status(200).json({ message: "Capsule updated successfully!", updatedCapsule });
+    } catch (error) {
+      console.error("Update Error:", error);
+      res.status(400).json({ error: "Bad Request" });
     }
-  } catch (error) {
-    console.error("Update Error:", error);
-    res.status(400).json({ error: "Bad Request" });
   }
-});
+);
 capsulesRouter.get(
   "/user/:userId",
   tokenExtractor,

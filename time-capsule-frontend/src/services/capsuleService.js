@@ -7,13 +7,11 @@ let token = null
 
 const setToken = (newToken) => {
   token = `Bearer ${newToken}`
-  console.log('Token set:', token)
   localStorage.setItem('authToken', token)
 }
 
 const getAuthConfig = () => {
   token = localStorage.getItem('authToken')
-  console.log('Authorization header:', token)
   return {
     headers: { Authorization: token },
   }
@@ -56,6 +54,12 @@ const getCapsuleByID = async (id) => {
   return response.data
 }
 
+const getCapsulesByRecipient = async () => {
+  const config = getAuthConfig()
+    const response = await axios.get(`${baseUrl}/my-capsules`, config);
+    return response.data; 
+};
+
 export default {
   createCapsule,
   deleteCapsule,
@@ -64,4 +68,5 @@ export default {
   setToken,
   getCapsulesByUser,
   getCapsuleByID,
+  getCapsulesByRecipient,
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import capsuleService from '../services/capsuleService'
@@ -20,8 +19,10 @@ export const CapsuleProvider = ({ children }) => {
     try {
       const returnedCapsule = await capsuleService.createCapsule(capsuleObject)
       if (returnedCapsule) {
-        setCapsules((prevCapsules) => [...prevCapsules, returnedCapsule])
-      }
+        setCapsules((prevCapsules) => 
+          Array.isArray(prevCapsules) ? [...prevCapsules, returnedCapsule] : [returnedCapsule]
+        )
+      } 
       setNotification('Capsule added successfully!')
       setIsError(false)
       setTimeout(() => {
@@ -42,9 +43,9 @@ export const CapsuleProvider = ({ children }) => {
     if (window.confirm(`Are you sure you want to delete this capsule?`))
       try {
         await capsuleService.deleteCapsule(id)
-        setCapsules((prevCapsules) =>
-          prevCapsules.filter((capsule) => capsule.id !== id)
-        )
+        setCapsules((prevCapsules) => Array.isArray(prevCapsules) ? 
+        prevCapsules.filter((capsule) => capsule.id !== id) : []
+      )
         setNotification('Capsule deleted successfully!')
         setIsError(false)
         setTimeout(() => {
@@ -62,16 +63,18 @@ export const CapsuleProvider = ({ children }) => {
   const updateCapsule = async (id, updatedData) => {
     try {
       const updatedCapsule = await capsuleService.updateCapsule(id, updatedData)
-      setCapsules((prevCapsules) =>
-        prevCapsules.map((capsule) =>
+      setCapsules((prevCapsules) => {
+        if (!Array.isArray(prevCapsules)) return [updatedCapsule]
+        return prevCapsules.map((capsule) =>
           capsule.id === id ? updatedCapsule : capsule
         )
-      )
+      })
       setNotification('Capsule updated successfully!')
       setIsError(false)
       setTimeout(() => {
         setNotification(null)
       }, 5000)
+      navigate('/') 
       return updatedCapsule
     } catch (error) {
       setNotification(error.response.data.error)

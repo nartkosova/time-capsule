@@ -50,7 +50,6 @@ const AdminPage = () => {
         )
       }
     }
-
     if (userId) {
       fetchUserCapsules()
     }

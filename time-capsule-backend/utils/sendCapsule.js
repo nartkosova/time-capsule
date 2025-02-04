@@ -48,7 +48,7 @@ const sendCapsule = async (capsule) => {
 
 <p>Visit the <a href="https://time-capsule-2.onrender.com/">Time Capsule</a> website to sign up and access your Time Capsule.</p>
         
-<p>Sent on: ${capsule.dateSent}</p>
+<p>Sent on: ${capsule.dateSent} </p>
         
 <p>Sincerely,<br/>Time Capsule Team</p>
       `,
