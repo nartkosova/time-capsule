@@ -38,4 +38,5 @@
 | 22/01/25 | 2 | Created email for time capsule, conntected via gmail API. Capsules will now be sent out on the date selected.|
 | 24/01/25 | 2 | Created contact form with web3forms, small fixes to the user experience.|
 | 04/02/25 | 6 | Users will now be able to view capsules that they have been sent, updated email. Project is mostly complete.|
-| total | 96 | | 
+| 24/01/25 | 3 | Finalizing code, fixed issues, testing, project is done. |
+| total | 105 | | 

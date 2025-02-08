@@ -83,9 +83,7 @@ const Capsules = () => {
         </p>
       </section>
     )
-  }
-
-  return (
+  } else return (
       <div> 
     <section className="how-it-works">
         <h2 className="section-title">Your Capsules:</h2>

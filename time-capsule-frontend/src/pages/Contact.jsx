@@ -3,14 +3,39 @@ import { useNavigate } from 'react-router-dom'
 
 const ContactForm = () => {
   const navigate = useNavigate()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+
+    const formData = new FormData(form)
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Message sent successfully!')
+          navigate('/')
+        } else {
+          alert('Failed to send message.')
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+        alert('Something went wrong.')
+      })
+  }
+
   return (
     <div>
-      <form action="https://api.web3forms.com/submit" method="POST">
+      <form onSubmit={handleSubmit}>
         <input
           type="hidden"
           name="access_key"
           value="12439b0a-c030-47a6-89b1-98e423de2b49"
         />
+
         <label>
           Name:
           <input
@@ -40,7 +65,7 @@ const ContactForm = () => {
             data-testid="email"
             placeholder="Email"
             required
-            type="text"
+            type="email"
           />
         </label>
 
@@ -50,7 +75,6 @@ const ContactForm = () => {
             name="message"
             data-testid="message"
             rows="4"
-            id="Message"
             required
             onChange={(e) => {
               e.target.style.height = 'auto'
@@ -61,22 +85,16 @@ const ContactForm = () => {
         </label>
 
         <div className="button-container">
-          <button
-            type="submit"
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' })
-              navigate('/')
-            }}
-          >
-            Send Message
-          </button>
+          <button type="submit">Send Message</button>
         </div>
       </form>
     </div>
   )
 }
+
 ContactForm.propTypes = {
   handleContact: PropTypes.func,
   handleUser: PropTypes.func,
 }
+
 export default ContactForm

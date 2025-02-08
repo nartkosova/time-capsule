@@ -44,7 +44,6 @@ const CapsuleForm = () => {
       formData.append('sendTo', sendTo)
       formData.append('date', date)
 
-
       await addCapsule(formData)
 
       handleReset()
@@ -133,7 +132,7 @@ const CapsuleForm = () => {
               type="file"
               data-testid="fileinput"
               id="fileInput"
-              accept="image/*,video/*,audio/*"
+              accept="image/*"
               ref={fileInput}
               style={{ display: 'none' }}
               onChange={handleFileChange}

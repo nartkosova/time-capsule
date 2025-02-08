@@ -47,7 +47,6 @@
 }
 .hero-text {
   font-weight: 120 !important;
-  /* animation: fadeIn 1.4s ease-in-out; */
 }
 @keyframes fadeIn {
   0% {
@@ -78,14 +77,12 @@
   color: #d22780;
 }
 .logout {
-  /* margin-bottom: 5.4px; */
   margin-top: 0rem;
 }
 .features {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* row-gap: -2rem; */
   gap: 2rem;
   padding: 2rem;
   align-self: center;

@@ -127,27 +127,42 @@ const CapsulePreview = ({ user }) => {
           className="capsule-image"
         />
       )}
+
       <div className="button-container" style={{ marginTop: '1rem' }}>
         <button
           style={{ marginRight: '0.5rem' }}
-          type="submit"
-          onClick={() => {
-            navigate(`/edit/${capsule.id}`)
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }}
-        >
-          Edit
-        </button>
-        <button
-          style={{ marginLeft: '0.5rem' }}
           type="button"
           onClick={() => {
-            deleteCapsule(capsule.id)
+            navigate(-1)
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         >
-          Delete
+          Back
         </button>
+        {userId !== capsule.user.id ? null : (
+          <>
+            <button
+              style={{ marginRight: '0.5rem' }}
+              type="submit"
+              onClick={() => {
+                navigate(`/edit/${capsule.id}`)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
+              Edit
+            </button>
+            <button
+              style={{ marginLeft: '0.5rem' }}
+              type="button"
+              onClick={() => {
+                deleteCapsule(capsule.id)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            >
+              Delete
+            </button>{' '}
+          </>
+        )}
       </div>
     </section>
   )

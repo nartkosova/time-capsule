@@ -106,32 +106,32 @@ const App = () => {
   return (
     <CapsuleProvider message={notification} isError={isError}>
       <Navigation user={user} handleLogout={handleLogout} />
-      <div className='grow'>
-      <Notification message={notification} isError={isError} />
-      <Routes>
-        <Route path="/" element={<Home user={user} />} />
-        <Route path="/create" element={<CapsuleForm />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/login"
-          element={
-            <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
-          }
-        />
-        <Route
-          path="/register"
-          element={<Register handleUser={handleUser} />}
-        />
-        <Route
-          path="/capsule-preview/:id"
-          element={<CapsulePreview user={user} />}
-        />
-        <Route path="/admin-page" element={<AdminPage />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/edit/:id" element={<UpdateCapsuleForm />} />
-        <Route path="/contact" element={<ContactForm />} />
-        <Route path="/capsules" element={<Capsules />} />
-      </Routes>
+      <div className="grow">
+        <Notification message={notification} isError={isError} />
+        <Routes>
+          <Route path="/" element={<Home user={user} />} />
+          <Route path="/create" element={<CapsuleForm />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/login"
+            element={
+              <LoginForm handleLogin={handleLogin} handleUser={handleUser} />
+            }
+          />
+          <Route
+            path="/register"
+            element={<Register handleUser={handleUser} />}
+          />
+          <Route
+            path="/capsule-preview/:id"
+            element={<CapsulePreview user={user} />}
+          />
+          <Route path="/admin-page" element={<AdminPage />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/edit/:id" element={<UpdateCapsuleForm />} />
+          <Route path="/contact" element={<ContactForm />} />
+          <Route path="/capsules" element={<Capsules />} />
+        </Routes>
       </div>
       <Footer />
     </CapsuleProvider>
